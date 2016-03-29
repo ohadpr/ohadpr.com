@@ -1,0 +1,21 @@
+Bootstrap LIVE Editor 1.0
+Copyright © 2012, InnovaStudio (www.InnovaStudio.com). All rights reserved.
+____________________________________________________________________
+
+UNLIMITED WEBSITE LICENSE
+
+1. Bootstrap LIVE Editor (Product) is licensed, not sold. All copyrights to Bootstrap LIVE Editor are exclusively owned by the author - InnovaStudio.
+
+2. Use of Bootstrap LIVE Editor (Product) in integration or application development requires one license per developer. Licenses are non-transferable between developers.
+
+3. You have the right to use the Product in unlimited websites (personal or commercial).
+
+4. If you use the Product for your client projects, You will be responsible for providing support to your clients, and InnovaStudio will not communicate directly with your clients under any circumstances.
+
+5. It is not allowed to create derivative works based upon the Product.
+
+6. Usage/distribution in projects/applications for free or for sale (eg. CMS product, etc) is not allowed.
+
+7. LIMITED WARRANTY 
+Although InnovaStudio has tested this Product and reviewed the documentation, InnovaStudio makes no warranty or representation, either expressed or implied, with respect to this Product, its quality, performance, merchantability, or fitness for a particular purpose. As a result, Bootstrap LIVE Editor is licensed AS-IS, and you are assuming the entire risk as to its quality and performance. 
+InnovaStudio shall not be liable for any claim or right to recover damages, including, but not limited to, loss of profit, data, or use of the software or special, incidental, or consequential damages, or other similar claims, even if InnovaStudio has been specifically advised of the possibility of such damages. 

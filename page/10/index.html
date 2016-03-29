@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html dir="ltr" lang="en-US">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>ohadpr | ideas, hacks and stuff | Page 10</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="../../wp-content/themes/twentyeleven/style.css" />
+<link rel="pingback" href="../../xmlrpc.php.html" />
+<!--[if lt IE 9]>
+<script src="../../wp-content/themes/twentyeleven/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; Feed" href="../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; Comments Feed" href="../../comments/feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../xmlrpc-rsd.php.html" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 3.3.1" />
+</head>
+
+<body class="home blog paged paged-10 two-column right-sidebar">
+<div id="page" class="hfeed">
+	<header id="branding" role="banner">
+			<hgroup>
+				<h1 id="site-title"><span><a href="../../index.html" title="ohadpr" rel="home">ohadpr</a></span></h1>
+				<h2 id="site-description">ideas, hacks and stuff</h2>
+			</hgroup>
+
+			
+								<form method="get" id="searchform" action="http://ohadpr.com/">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" id="s" placeholder="Search" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+			
+			<nav id="access" role="navigation">
+				<h3 class="assistive-text">Main menu</h3>
+								<div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+				<div class="skip-link"><a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+								<div class="menu"><ul><li ><a href="../../index.html" title="Home">Home</a></li><li class="page_item page-item-2"><a href="../../about/index.html">About</a></li><li class="page_item page-item-164"><a href="../../privacy-policy/index.html">Privacy Policy</a></li><li class="page_item page-item-223"><a href="../../sitemap/index.html">sitemap</a></li></ul></div>
+			</nav><!-- #access -->
+	</header><!-- #branding -->
+
+
+	<div id="main">
+		<div id="primary">
+			<div id="content" role="main">
+
+			
+						<nav id="nav-above">
+			<h3 class="assistive-text">Post navigation</h3>
+			<div class="nav-previous"><a href="../11/index.html" ><span class="meta-nav">&larr;</span> Older posts</a></div>
+			<div class="nav-next"><a href="../9/index.html" >Newer posts <span class="meta-nav">&rarr;</span></a></div>
+		</nav><!-- #nav-above -->
+	
+								
+					
+	<article id="post-31" class="post-31 post type-post status-publish format-standard hentry">
+		<header class="entry-header">
+						<h1 class="entry-title"><a href="../../2006/12/libraries-for-fetching-stuff-off-the-net-wininet-libcurl/index.html" title="Permalink to libraries for fetching stuff off the net, WinInet, libcurl" rel="bookmark">libraries for fetching stuff off the net, WinInet, libcurl</a></h1>
+			
+						<div class="entry-meta">
+				<span class="sep">Posted on </span><a href="../../2006/12/libraries-for-fetching-stuff-off-the-net-wininet-libcurl/index.html" title="7:40 AM" rel="bookmark"><time class="entry-date" datetime="2006-12-15T07:40:00+00:00" pubdate>December 15, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>			</div><!-- .entry-meta -->
+			
+						<div class="comments-link">
+				<a href="../../2006/12/libraries-for-fetching-stuff-off-the-net-wininet-libcurl/index.html#respond" title="Comment on libraries for fetching stuff off the net, WinInet, libcurl"><span class="leave-reply">Reply</span></a>			</div>
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>I used to use WinInet until now, had it wrapped around with some code that evolved over the years, t&#8217;was ok.</p>
+<p>Then this other I suddenly had to send a packet out of a specific connection and guess what&#8230; WinInet doesn&#8217;t support that. Neither does WinHTTP (WinInet&#8217;s predecessor).</p>
+<p>So, looking around I bumped into <a href="http://curl.haxx.se/">libcurl</a>, which I&#8217;ve tried to ignore all these years. Why ignore ? well because it looks big, and when a piece of code looks big it&#8217;s hard for it to attract coders. The bigger the code is, the higher the changes of an unknown convention of programming.</p>
+<p>Guess what, this is what it takes to do download something with libcurl:</p>
+<blockquote><p>CString urlopen(const TCHAR* url)<br />{<br />    USES_CONVERSION;</p>
+<p>    CURL* c = curl_easy_init();<br />    ByteBucket    bb;</p>
+<p>    curl_easy_setopt(c, CURLOPT_URL, T2A(url));<br />    curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, write_data);<br />    curl_easy_setopt(c, CURLOPT_WRITEDATA, &#038;bb);<br />    CURLcode success = curl_easy_perform(c);</p>
+<p>    bb.AddByte(0);    // null-termination<br />    return CString( A2T((char*)bb.GetData()) );<br />}</p>
+<p>static size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp)<br />{<br />    ByteBucket*    bb = (ByteBucket*)userp;<br />    bb->AddBuffer((BYTE*)buffer, size*nmemb);<br />    return size*nmemb;<br />}</p></blockquote>
+<p>Fantastic ha ? ByteBucket is a trivial class I wrote that helps with these sort of things.</p>
+<p>So isn&#8217;t it funny ? fearing from having to deal with lots of curl code I ended up with lots of WinInet code, while eventually the libcurl code was much simpler to work with.</p>
+<p>Conclusion ? Fear is a programmer&#8217;s worst enemy&#8230; I think.</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+												<span class="cat-links">
+				<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span> <a href="../../category/index.html" title="View all posts in " rel="category tag"></a>			</span>
+									
+									<span class="sep"> | </span>
+						<span class="comments-link"><a href="../../2006/12/libraries-for-fetching-stuff-off-the-net-wininet-libcurl/index.html#respond" title="Comment on libraries for fetching stuff off the net, WinInet, libcurl"><span class="leave-reply">Leave a reply</span></a></span>
+			
+					</footer><!-- #entry-meta -->
+	</article><!-- #post-31 -->
+
+				
+					
+	<article id="post-30" class="post-30 post type-post status-publish format-standard hentry">
+		<header class="entry-header">
+						<h1 class="entry-title"><a href="../../2006/08/my-shot-laptop-just-woke-up/index.html" title="Permalink to My shot laptop just woke up" rel="bookmark">My shot laptop just woke up</a></h1>
+			
+						<div class="entry-meta">
+				<span class="sep">Posted on </span><a href="../../2006/08/my-shot-laptop-just-woke-up/index.html" title="1:28 PM" rel="bookmark"><time class="entry-date" datetime="2006-08-19T13:28:00+00:00" pubdate>August 19, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>			</div><!-- .entry-meta -->
+			
+						<div class="comments-link">
+				<a href="../../2006/08/my-shot-laptop-just-woke-up/index.html#respond" title="Comment on My shot laptop just woke up"><span class="leave-reply">Reply</span></a>			</div>
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>So a few good months ago my laptop got shot by a police robot.<br />When I write &#8220;shot&#8221; I don&#8217;t mean  anything less than a live bullet puncturing my precious new IBM-T43p (yeah, the high-speed front-site-bus one).</p>
+<div style="text-align: center;"><a href="http://ohadp.blogspot.com/2005/12/they-shot-me-in-laptop_11.html">Here&#8217;s the old story</a></div>
+<p>
+<div style="text-align: center;"><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://static.flickr.com/34/72430869_81812096b7_m.jpg"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/34/72430869_81812096b7_m.jpg" alt="" border="0" /></a>      <a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://static.flickr.com/38/120743624_134bb2dc16_m.jpg"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/38/120743624_134bb2dc16_m.jpg" alt="" border="0" /></a>
+<div style="text-align: left;">So there I am with my shot laptop&#8230;<br />I took it to a gathering of techie friends called Kinnernet but nobody had time to fix it (including myself), so when I got back home I decided to fix the darn thing.</p>
+<p>When the bullet pierced &#8216;my precious&#8217;, it took out the screen, the keyboard and the motherboard. Luckily enough, the part of the motherboard that was taken out was a mere fan. When attempting to boot the kiddo (with external screen/keyboard ofcourse) the BIOS complained only about the fan&#8230;</p>
+<p>2 days and 30$ later I was sitting in front of the then-shot now-dismantled laptop preparing for the minor surgery.</p>
+</div>
+</div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"><a href="http://flickr.com/photos/ohadp/219235098/">punctured fan<br /></a><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://flickr.com/photos/ohadp/219235098/"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/61/219235098_ada377c83b_m.jpg" alt="" border="0" /></a><a href="http://flickr.com/photos/ohadp/219235098/"><br /></a><br /><a href="http://flickr.com/photos/ohadp/219235099/">old fan removed<br /></a><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://flickr.com/photos/ohadp/219235099/"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/60/219235099_c62f29f608_m.jpg" alt="" border="0" /></a></p>
+<p><a href="http://flickr.com/photos/ohadp/219235100/">new fan (30$)<br /></a><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://flickr.com/photos/ohadp/219235100/"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/65/219235100_5e9d12c6a3_m.jpg" alt="" border="0" /></a></p>
+<p><a href="http://flickr.com/photos/ohadp/219235101/">new fan installed<br /></a><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://flickr.com/photos/ohadp/219235101/"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/79/219235101_21db6cf2c5_m.jpg" alt="" border="0" /></a></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"><a href="http://flickr.com/photos/ohadp/219235104/"> new fan exposed by punctured keyboard, sweet<br /></a></div>
+<div style="text-align: center;"><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://flickr.com/photos/ohadp/219235104/"><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/74/219235104_c5ab79f86e_m.jpg" alt="" border="0" /></a><a href="http://flickr.com/photos/ohadp/219235104/"><br /></a><br /><a href="http://flickr.com/photos/ohadp/219235105/">my new baby running windows (nothing to be proud of <img src='../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> <br /><img style="margin: 0px auto 10px; text-align: center; cursor: pointer;" src="http://static.flickr.com/73/219235105_b651d7ac03_m.jpg" alt="" border="0" /></a>
+<div style="text-align: left;">That&#8217;s the lot.</div>
+<div style="text-align: left;">The laptop is now a fully functional desktop computer, and a strong one.</p>
+<p>Yossi suggested I sell it on eBay but I don&#8217;t know if it will really get a worthy price, after all it&#8217;s serving me well right now. Then again a laptop that survives a shot-of-death may be worth something to a collector.</p>
+<p>I can be reached at <span style="font-weight: bold;">ohadpr AT gmail DOT com</span><br />You can also visit <a href="http://www.3d3r.com">3D3R Software-Studios</a> which is where I work. </div>
+</div>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+												<span class="cat-links">
+				<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span> <a href="../../category/index.html" title="View all posts in " rel="category tag"></a>			</span>
+									
+									<span class="sep"> | </span>
+						<span class="comments-link"><a href="../../2006/08/my-shot-laptop-just-woke-up/index.html#respond" title="Comment on My shot laptop just woke up"><span class="leave-reply">Leave a reply</span></a></span>
+			
+					</footer><!-- #entry-meta -->
+	</article><!-- #post-30 -->
+
+				
+					
+	<article id="post-29" class="post-29 post type-post status-publish format-standard hentry">
+		<header class="entry-header">
+						<h1 class="entry-title"><a href="../../2006/07/opera-ope-%D7%A8%D7%A2/index.html" title="Permalink to Opera (Ope-רע)" rel="bookmark">Opera (Ope-רע)</a></h1>
+			
+						<div class="entry-meta">
+				<span class="sep">Posted on </span><a href="../../2006/07/opera-ope-%D7%A8%D7%A2/index.html" title="4:29 PM" rel="bookmark"><time class="entry-date" datetime="2006-07-22T16:29:00+00:00" pubdate>July 22, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>			</div><!-- .entry-meta -->
+			
+						<div class="comments-link">
+				<a href="../../2006/07/opera-ope-%D7%A8%D7%A2/index.html#respond" title="Comment on Opera (Ope-רע)"><span class="leave-reply">Reply</span></a>			</div>
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>i&#8217;ve been trying out <a href="http://www.opera.com">Opera</a> for a few days now, here are a few verbs i&#8217;d use to describe it:<br/>
+<ul>
+<li>funky</li>
+<li>futuristic
+<li>hitek
+<li>cool
+<li>childish
+<li>immature
+<li>funny</ul>
+<p><u><br/>pros:</u><br/>
+<ul>
+<li>rather quick</li>
+<li>it&#8217;s just sorta cool</ul>
+<p><br/><u>mega-cons:</u><u><br/></u>
+<ul>
+<li>no default bookmark toolbar<br/></li>
+<li>gmail is sometimes weird</li>
+<li>i think text-area editing of all sorts is a bit messed up.</li>
+<li>when a tab finishes loading it takes the focus by default, god this is annoying.</li>
+</ul>
+<p><br/>It doesn&#8217;t work to well for me with GMail, so I&#8217;m gonna dump it.<br/>Talk about the kind of black and white math that plagues software.<br/></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+												<span class="cat-links">
+				<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span> <a href="../../category/index.html" title="View all posts in " rel="category tag"></a>			</span>
+									
+									<span class="sep"> | </span>
+						<span class="comments-link"><a href="../../2006/07/opera-ope-%D7%A8%D7%A2/index.html#respond" title="Comment on Opera (Ope-רע)"><span class="leave-reply">Leave a reply</span></a></span>
+			
+					</footer><!-- #entry-meta -->
+	</article><!-- #post-29 -->
+
+				
+					
+	<article id="post-28" class="post-28 post type-post status-publish format-standard hentry">
+		<header class="entry-header">
+						<h1 class="entry-title"><a href="../../2006/06/1-0/index.html" title="Permalink to 1 / 0" rel="bookmark">1 / 0</a></h1>
+			
+						<div class="entry-meta">
+				<span class="sep">Posted on </span><a href="../../2006/06/1-0/index.html" title="6:15 AM" rel="bookmark"><time class="entry-date" datetime="2006-06-14T06:15:00+00:00" pubdate>June 14, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>			</div><!-- .entry-meta -->
+			
+						<div class="comments-link">
+				<a href="../../2006/06/1-0/index.html#respond" title="Comment on 1 / 0"><span class="leave-reply">Reply</span></a>			</div>
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p><span style="font-size:85%;"><span style="color: rgb(204, 0, 0);">(16:09:49) </span></span><span style="color: rgb(204, 0, 0);"><b><span style="font-size:100%;">Michael Ring:</span></b></span><span style="font-size:100%;"> So this $!@#! Officer there didn&#8217;t understand what i just said. I think she  got a <span style="font-weight: bold;">&#8220;division by zero&#8221;</span> operation in her head after my words</span></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+												<span class="cat-links">
+				<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span> <a href="../../category/index.html" title="View all posts in " rel="category tag"></a>			</span>
+									
+									<span class="sep"> | </span>
+						<span class="comments-link"><a href="../../2006/06/1-0/index.html#respond" title="Comment on 1 / 0"><span class="leave-reply">Leave a reply</span></a></span>
+			
+					</footer><!-- #entry-meta -->
+	</article><!-- #post-28 -->
+
+				
+					
+	<article id="post-27" class="post-27 post type-post status-publish format-standard hentry">
+		<header class="entry-header">
+						<h1 class="entry-title"><a href="../../2006/06/fractal-music/index.html" title="Permalink to Fractal Music" rel="bookmark">Fractal Music</a></h1>
+			
+						<div class="entry-meta">
+				<span class="sep">Posted on </span><a href="../../2006/06/fractal-music/index.html" title="4:21 PM" rel="bookmark"><time class="entry-date" datetime="2006-06-11T16:21:00+00:00" pubdate>June 11, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>			</div><!-- .entry-meta -->
+			
+						<div class="comments-link">
+				<a href="../../2006/06/fractal-music/index.html#comments" title="Comment on Fractal Music">8</a>			</div>
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>My bro&#8217;, elad, who&#8217;s been into music for some time now, came up with the idea of harvesting sound out of Fractals.<br />He was amazed with the vast richness fractals provided visually, and was sure we could get some interesting results from trying to translate these into the audio world.</p>
+<p>Well, he was sorta right, 2 hours and 20 lines of Python later&#8230; we got some crazy results.</p>
+<p>What we did was generate a Mandelbrot, and simply use the values of the Mandelbrot function as the MIDI notes. We spaced all the notes evenly for now.</p>
+<p>Now when you generate music, you need to choose some path in the mandelbrot (or in any other 2D surface, that&#8217;s because music moves in 1D for now). We tried straight lines, but got lots of monotonous areas, that&#8217;s because the Mandelbrot is filled with them.<br />Following my bro&#8217;s suggestion we moved to a spiral (he&#8217;s hot for spirals too). We chose an area of the fractal that looks like a sun, with spikes comming out, and we simply spiralled out of it, now this gave some cool effects.</p>
+<p>Here&#8217;s what the spiral looks like:</p>
+<p><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://photos1.blogger.com/blogger/2493/832/1600/tmpcwykiq.jpg"><img style="margin: 0px auto 10px; display: block; text-align: center; cursor: pointer;" src="http://photos1.blogger.com/blogger/2493/832/400/tmpcwykiq.jpg" alt="" border="0" /></a><br />Here are some results:<br /><a href="../../blog/fractal-sound/psychadelic%20fall.mid"><br />psychadelic fall.mid</a><br /><a href="../../blog/fractal-sound/2.mid">2.mid</a><br /><a href="../../blog/fractal-sound/elad.mid">elad.mid</a><br /><a href="../../blog/fractal-sound/1.mp3">1.mp3</a> (mixed by my bro&#8217;)</p>
+<p><a href="../../blog/fractal-sound/elad-test-python-src.zip">Here&#8217;s the Python source-code</a> (requiures <a href="http://www.pythonware.com/products/pil/">PIL</a> and <a href="http://www.mxm.dk/products/public/pythonmidi/">python-midi</a>)</p>
+<p>Since we like this idea, we&#8217;re gonna have a few more sessions over it, here are some future thoughts:<br />* spacing notes  unevenly.<br />* determining cut-offs.<br />* analyzing the data we get, calculate deriviate, and move the whole thing faster when the funcntion moves slower in an attempt to get things more evened out.<br />* usng other functions/images.<br />* use the mandelbrot data to determine infor other than notes, perhaps cut-offs, distance between notes and length of notes.</p>
+<p>Gots ideas ? <a href="mailto:ohadpr%20at%20gmail%20dot%20com">bring em on1</a>,   <a href="mailto:ohadpr%20at%20gmail%20dot%20com"><a href="mailto:eladpres%20at%20gmail%20dot%20com">bring em on 2</a><br /></a></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+												<span class="cat-links">
+				<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span> <a href="../../category/index.html" title="View all posts in " rel="category tag"></a>			</span>
+									
+									<span class="sep"> | </span>
+						<span class="comments-link"><a href="../../2006/06/fractal-music/index.html#comments" title="Comment on Fractal Music"><b>8</b> Replies</a></span>
+			
+					</footer><!-- #entry-meta -->
+	</article><!-- #post-27 -->
+
+				
+						<nav id="nav-below">
+			<h3 class="assistive-text">Post navigation</h3>
+			<div class="nav-previous"><a href="../11/index.html" ><span class="meta-nav">&larr;</span> Older posts</a></div>
+			<div class="nav-next"><a href="../9/index.html" >Newer posts <span class="meta-nav">&rarr;</span></a></div>
+		</nav><!-- #nav-above -->
+	
+			
+			</div><!-- #content -->
+		</div><!-- #primary -->
+
+		<div id="secondary" class="widget-area" role="complementary">
+			<aside id="text-1" class="widget widget_text">			<div class="textwidget"><img src="../../wp-content/uploads/2010/03/ohad.jpg"/>
+
+I'm Ohad Eder-Pressman, a San-Francisco based Founder & Software-Hacker. Currently I am the CEO of <a href="http://www.3d3r.com/">3D3R Software Studio</a>.<br><br>
+
+This is where I post my ideas, hacks and stuff.<br><br>
+
+Connect: <a href="http://twitter.com/ohadpr">Twitter</a>,&nbsp;<a href="http://www.linkedin.com/in/ohadpr">Linkedin</a>, oha<a href="http://mailhide.recaptcha.net/d?k=01hzC7D5efQDyaXwKBA0R3Mw==&c=izGMGOXBeL1AfBJGS1zbo8wEgn7ObxVEErxLQ-nONz8=" onclick="window.open('http://mailhide.recaptcha.net/d?k=01hzC7D5efQDyaXwKBA0R3Mw==&amp;c=izGMGOXBeL1AfBJGS1zbo8wEgn7ObxVEErxLQ-nONz8=', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">...</a>@gmail.com</div>
+		</aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+				<li><a href="../../2010/07/terrain-ipad-app/index.html" title="Terrain &#8211; iPad app">Terrain &#8211; iPad app</a></li>
+				<li><a href="../../2010/05/google-voice-vs-skype/index.html" title="Google-Voice vs. Skype">Google-Voice vs. Skype</a></li>
+				<li><a href="../../2010/05/html5-text-path-demo/index.html" title="HTML5 Text Path demo">HTML5 Text Path demo</a></li>
+				<li><a href="../../2010/04/countries-approximate-lat-lon-and-iso-3166-1-alpha-2/index.html" title="Countries, Approximate Lat-Lon and ISO 3166-1 alpha-2">Countries, Approximate Lat-Lon and ISO 3166-1 alpha-2</a></li>
+				<li><a href="../../2010/04/what-does-google-voice-on-your-desktopmean/index.html" title="What does Google Voice on your Desktop mean?">What does Google Voice on your Desktop mean?</a></li>
+				</ul>
+		</aside><aside id="text-195201181" class="widget widget_text"><h3 class="widget-title">Nostalgic, Meaningful, Useful</h3>			<div class="textwidget"><a href="../../category/computergaphics/index.html">Computer Graphics experiments</a>
+<br>
+<a href="../../etc/pilot/pilot.htm
+">Palm software</a>
+<br>
+<a href="../../etc/imr-demos/index.html">The demoscene</a></div>
+		</aside>		</div><!-- #secondary .widget-area -->
+
+	</div><!-- #main -->
+
+	<footer id="colophon" role="contentinfo">
+
+			
+
+			<div id="site-generator">
+								<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform" rel="generator">Proudly powered by WordPress</a>
+			</div>
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+
+</body>
+</html>
+<!-- Localized -->

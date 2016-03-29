@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html dir="ltr" lang="en-US">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>solution to unresolved external symbol _com_issue_error _bstr_t::_bstr_t | ohadpr</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/twentyeleven/style.css" />
+<link rel="pingback" href="../../../xmlrpc.php.html" />
+<!--[if lt IE 9]>
+<script src="../../../wp-content/themes/twentyeleven/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; solution to unresolved external symbol _com_issue_error _bstr_t::_bstr_t Comments Feed" href="feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../xmlrpc-rsd.php.html" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Sorta 1-way Video chat from your 6680 to a PC' href='../sorta-1-way-video-chat-from-your-6680-to-a-pc/index.html' />
+<link rel='next' title='Bubbles: Minimizing the web' href='../bubbles-minimizing-the-web/index.html' />
+<meta name="generator" content="WordPress 3.3.1" />
+<link rel='canonical' href='index.html' />
+<link rel='shortlink' href='../../../index-p=22.html' />
+</head>
+
+<body class="single single-post postid-22 single-format-standard singular two-column right-sidebar">
+<div id="page" class="hfeed">
+	<header id="branding" role="banner">
+			<hgroup>
+				<h1 id="site-title"><span><a href="../../../index.html" title="ohadpr" rel="home">ohadpr</a></span></h1>
+				<h2 id="site-description">ideas, hacks and stuff</h2>
+			</hgroup>
+
+			
+								<form method="get" id="searchform" action="http://ohadpr.com/">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" id="s" placeholder="Search" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+			
+			<nav id="access" role="navigation">
+				<h3 class="assistive-text">Main menu</h3>
+								<div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+				<div class="skip-link"><a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+								<div class="menu"><ul><li ><a href="../../../index.html" title="Home">Home</a></li><li class="page_item page-item-2"><a href="../../../about/index.html">About</a></li><li class="page_item page-item-164"><a href="../../../privacy-policy/index.html">Privacy Policy</a></li><li class="page_item page-item-223"><a href="../../../sitemap/index.html">sitemap</a></li></ul></div>
+			</nav><!-- #access -->
+	</header><!-- #branding -->
+
+
+	<div id="main">
+		<div id="primary">
+			<div id="content" role="main">
+
+				
+					<nav id="nav-single">
+						<h3 class="assistive-text">Post navigation</h3>
+						<span class="nav-previous"><a href="../sorta-1-way-video-chat-from-your-6680-to-a-pc/index.html" rel="prev"><span class="meta-nav">&larr;</span> Previous</a></span>
+						<span class="nav-next"><a href="../bubbles-minimizing-the-web/index.html" rel="next">Next <span class="meta-nav">&rarr;</span></a></span>
+					</nav><!-- #nav-single -->
+
+					
+<article id="post-22" class="post-22 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">solution to unresolved external symbol _com_issue_error _bstr_t::_bstr_t</h1>
+
+				<div class="entry-meta">
+			<span class="sep">Posted on </span><a href="index.html" title="7:14 AM" rel="bookmark"><time class="entry-date" datetime="2006-03-16T07:14:00+00:00" pubdate>March 16, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>		</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>LNK2019: unresolved external symbol &#8220;void __stdcall _com_issue_error(long)&#8221; (?_com_issue_error@@YGXJ@Z) referenced in function &#8220;public: __thiscall _bstr_t::_bstr_t(unsigned short const *)&#8221; (??0_bstr_t@@QAE@PBG@Z)</p>
+<p>I despise this error. Every time I write a new ATL or WTL app, and don&#8217;t use COM much in it, I get this.<br />I then plow for 10 minutes throuh newsgroups to get it figured.<br />So, hopefully Google will pick this text up and make the solution shorter for other people.</p>
+<div style="text-align: center;"><span style="font-size:180%;">SOLUTION: <span style="font-style: italic;">#include &lt;comdef.h&gt;<br /></span></span>
+<div style="text-align: left;"><span style="font-style: italic;"><br />Ben says that If #include comdef.h does not fix the unresolved externals, then make sure you are also linking against comsupp.lib</span></div>
+</div>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was posted in <a href="../../../category/index.html" title="View all posts in " rel="category tag"></a> by <a href="../../../author/ohad/index.html">ohad</a>. Bookmark the <a href="index.html" title="Permalink to solution to unresolved external symbol _com_issue_error _bstr_t::_bstr_t" rel="bookmark">permalink</a>.		
+			</footer><!-- .entry-meta -->
+</article><!-- #post-22 -->
+
+						<div id="comments">
+	
+	
+			<h2 id="comments-title">
+			47 thoughts on &ldquo;<span>solution to unresolved external symbol _com_issue_error _bstr_t::_bstr_t</span>&rdquo;		</h2>
+
+		
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1" id="li-comment-47">
+		<article id="comment-47" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-47"><time pubdate datetime="2006-05-25T06:37:00+00:00">May 25, 2006 at 6:37 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Hi!</p>
+<p>Tnx. It really helped <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+<p>BTW. It happens also with _variant_t</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-55">
+		<article id="comment-55" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-55"><time pubdate datetime="2006-07-18T10:47:00+00:00">July 18, 2006 at 10:47 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Definately helpful. Thanks.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-57">
+		<article id="comment-57" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-57"><time pubdate datetime="2006-08-01T08:55:00+00:00">August 1, 2006 at 8:55 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>WOW.. man it really worked!!! Three times cheers to you buddy ..</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-59">
+		<article id="comment-59" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-59"><time pubdate datetime="2006-08-14T08:00:00+00:00">August 14, 2006 at 8:00 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks. quick and to the point.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-61">
+		<article id="comment-61" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Ed McMan</span> on <a href="comment-page-1/index.html#comment-61"><time pubdate datetime="2006-09-01T12:52:00+00:00">September 1, 2006 at 12:52 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-64">
+		<article id="comment-64" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-64"><time pubdate datetime="2006-09-11T00:17:00+00:00">September 11, 2006 at 12:17 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Really thanks !!! That was an amazing help <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-67">
+		<article id="comment-67" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-67"><time pubdate datetime="2006-09-22T08:39:00+00:00">September 22, 2006 at 8:39 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-68">
+		<article id="comment-68" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-68"><time pubdate datetime="2006-10-03T17:32:00+00:00">October 3, 2006 at 5:32 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Exactly what I needed to know.<br />Thankyou!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-69">
+		<article id="comment-69" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-69"><time pubdate datetime="2006-11-01T06:07:00+00:00">November 1, 2006 at 6:07 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks, this helped loads.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-70">
+		<article id="comment-70" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Paul Maddox</span> on <a href="comment-page-1/index.html#comment-70"><time pubdate datetime="2006-11-03T05:08:00+00:00">November 3, 2006 at 5:08 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>EXCELLENT, thanks for the help!</p>
+<p>(PS. You might want to turn on comment reviews to avoid the spam. <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' />  )</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-72">
+		<article id="comment-72" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Hatch Chili Daddy</span> on <a href="comment-page-1/index.html#comment-72"><time pubdate datetime="2006-11-13T12:53:00+00:00">November 13, 2006 at 12:53 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Cool Beans!  Thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-73">
+		<article id="comment-73" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Ben</span> on <a href="comment-page-1/index.html#comment-73"><time pubdate datetime="2006-11-29T11:33:00+00:00">November 29, 2006 at 11:33 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Ohad, thank you for this! It is indeed the first Google hit. Please update it as follows: If #include comdef.h does not fix the unresolved externals, then make sure you are also linking against comsupp.lib. That fixed it for me.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-78">
+		<article id="comment-78" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Jonas</span> on <a href="comment-page-1/index.html#comment-78"><time pubdate datetime="2007-03-20T09:22:00+00:00">March 20, 2007 at 9:22 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Haha! Thanks a lot! <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+<p>I got 15 of those when I now recompiled my project after a lot of changes. Found you via Google!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-100">
+		<article id="comment-100" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-100"><time pubdate datetime="2007-09-17T04:22:00+00:00">September 17, 2007 at 4:22 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>At risk of repeating everyone else &#8211; thanks a lot &#8211; the evil compiler error is dead &#8211; hurrah!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-103">
+		<article id="comment-103" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Rabindra</span> on <a href="comment-page-1/index.html#comment-103"><time pubdate datetime="2007-10-19T03:21:00+00:00">October 19, 2007 at 3:21 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks man, its really helpful<br />i was searching for a long time for the conversion..</p>
+<p>Cheers,<br />Rabindra</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-105">
+		<article id="comment-105" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-105"><time pubdate datetime="2007-12-13T17:11:00+00:00">December 13, 2007 at 5:11 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>adding comsupp.lib worked for me w/o adding #include comdef.h</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-107">
+		<article id="comment-107" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-107"><time pubdate datetime="2008-01-29T03:23:00+00:00">January 29, 2008 at 3:23 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>THANKS !</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-108">
+		<article id="comment-108" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Fish in a Barrel</span> on <a href="comment-page-1/index.html#comment-108"><time pubdate datetime="2008-02-22T10:02:00+00:00">February 22, 2008 at 10:02 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Google did indeed take me right to this answer.  Thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-114">
+		<article id="comment-114" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">franiu</span> on <a href="comment-page-1/index.html#comment-114"><time pubdate datetime="2008-04-15T08:40:00+00:00">April 15, 2008 at 8:40 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Google did its job!</p>
+<p>Thans a lot!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-116">
+		<article id="comment-116" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Gem</span> on <a href="comment-page-1/index.html#comment-116"><time pubdate datetime="2008-04-30T14:42:00+00:00">April 30, 2008 at 2:42 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thank you very much!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-118">
+		<article id="comment-118" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-118"><time pubdate datetime="2008-05-07T13:44:00+00:00">May 7, 2008 at 1:44 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Even now, 2 years after its original date &#8211; this post continues to help lost souls on the Internet. Thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-119">
+		<article id="comment-119" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Pals</span> on <a href="comment-page-1/index.html#comment-119"><time pubdate datetime="2008-05-14T16:24:00+00:00">May 14, 2008 at 4:24 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thank you! Thank you! Thank you!!!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-131">
+		<article id="comment-131" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68' class='avatar avatar-68 photo avatar-default' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-131"><time pubdate datetime="2008-07-08T12:50:00+00:00">July 8, 2008 at 12:50 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thank you!  You saved the day <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-138">
+		<article id="comment-138" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/806935b573ed3157a4ed62ad48622502?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">sb</span> on <a href="comment-page-1/index.html#comment-138"><time pubdate datetime="2008-11-14T10:46:16+00:00">November 14, 2008 at 10:46 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>many many thanks!!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-139">
+		<article id="comment-139" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/21b713caffd4f2dd547b296d8d7b4b7d?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Googler</span> on <a href="comment-page-1/index.html#comment-139"><time pubdate datetime="2008-11-24T05:08:08+00:00">November 24, 2008 at 5:08 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>you + google = problem solved!!</p>
+<p>Many thanks</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-155">
+		<article id="comment-155" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/6f224d6704361fd90ae6d6bef0f24d85?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn"><a href='http://kentor.se' rel='external nofollow' class='url'>Stan</a></span> on <a href="comment-page-1/index.html#comment-155"><time pubdate datetime="2008-12-18T02:17:18+00:00">December 18, 2008 at 2:17 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thank you. It really helped <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> )</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-161">
+		<article id="comment-161" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/3c2edc01c95a567b4f60c4e2b40370df?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">eldo</span> on <a href="comment-page-1/index.html#comment-161"><time pubdate datetime="2008-12-27T01:48:30+00:00">December 27, 2008 at 1:48 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thank you! Very needed solution!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-164">
+		<article id="comment-164" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/3a1f5e6cd3ebee13169005074c2ebff3?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">ibmm</span> on <a href="comment-page-1/index.html#comment-164"><time pubdate datetime="2009-02-13T08:10:13+00:00">February 13, 2009 at 8:10 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Great thanks!!!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-171">
+		<article id="comment-171" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/2dcd8373049365cfc280e8433a5a304c?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Anonymous</span> on <a href="comment-page-1/index.html#comment-171"><time pubdate datetime="2009-03-27T08:20:23+00:00">March 27, 2009 at 8:20 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks a bunch&#8230;.Really really appriciate. It make my day and saved my hair!!!!!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-177">
+		<article id="comment-177" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/938a142d4f429537d49b7f0a29285897?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Gustavo</span> on <a href="comment-page-1/index.html#comment-177"><time pubdate datetime="2009-04-23T07:58:29+00:00">April 23, 2009 at 7:58 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks a lot!!!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-180">
+		<article id="comment-180" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/5cbca07f5a71e74cedf6ef09e9081562?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Marius</span> on <a href="comment-page-1/index.html#comment-180"><time pubdate datetime="2009-05-06T07:31:52+00:00">May 6, 2009 at 7:31 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>It really helped! Thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-181">
+		<article id="comment-181" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/419fca809d61ff15288d5dfee391c0bb?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Carlos</span> on <a href="comment-page-1/index.html#comment-181"><time pubdate datetime="2009-05-21T12:52:46+00:00">May 21, 2009 at 12:52 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thnk you very much. It really help a lot. Exact and short, makes it much more valuable. Have a nice day <img src='../../../wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /> </p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-190">
+		<article id="comment-190" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/c37f235727d6c44839745fda48b4db00?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Mano</span> on <a href="comment-page-1/index.html#comment-190"><time pubdate datetime="2009-07-10T02:02:57+00:00">July 10, 2009 at 2:02 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks a lot <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-194">
+		<article id="comment-194" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/dffeef61a34f07f99c5a7b2054f8b0ad?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Madan</span> on <a href="comment-page-1/index.html#comment-194"><time pubdate datetime="2009-09-02T06:17:57+00:00">September 2, 2009 at 6:17 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Proved to be really helpful. Especially when you are distressed and see nothing bright in front of you&#8230;.this useful tip has shown me life.<br />
+Thanks a lot my dear friend.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-197">
+		<article id="comment-197" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/77c5594dde4868bb405d5d824485dedf?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Sergey</span> on <a href="comment-page-1/index.html#comment-197"><time pubdate datetime="2009-09-17T06:41:54+00:00">September 17, 2009 at 6:41 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-213">
+		<article id="comment-213" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/7ec09487a8c1cb5a77347fc9baf80949?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Hamo</span> on <a href="comment-page-1/index.html#comment-213"><time pubdate datetime="2009-11-04T10:06:53+00:00">November 4, 2009 at 10:06 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Yesss! Thank you very much for saving my time!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-215">
+		<article id="comment-215" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/3ae61300b46b5377d5f08acf60927785?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn"><a href='http://smadasam.googlepages.com' rel='external nofollow' class='url'>san</a></span> on <a href="comment-page-1/index.html#comment-215"><time pubdate datetime="2009-11-19T19:27:45+00:00">November 19, 2009 at 7:27 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>It didn&#8217;t solve it for me.  But I did figure it out.</p>
+<p>I had to add this to my sources file.</p>
+<p>USE_VCCOM=1</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-217">
+		<article id="comment-217" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/6b1b0579ae016afbbe4678bce19d8d42?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Oleg</span> on <a href="comment-page-1/index.html#comment-217"><time pubdate datetime="2009-12-10T14:45:49+00:00">December 10, 2009 at 2:45 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks a ton!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-231">
+		<article id="comment-231" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/737b0f84201d0d444f41fc0056d2d1a7?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Boston Greg</span> on <a href="comment-page-1/index.html#comment-231"><time pubdate datetime="2010-03-02T11:49:40+00:00">March 2, 2010 at 11:49 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Dude, you are awesome!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-232">
+		<article id="comment-232" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ef0300fbf69d6b8322caf854c38ab8dc?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Marty Hirsch</span> on <a href="comment-page-1/index.html#comment-232"><time pubdate datetime="2010-03-05T13:16:11+00:00">March 5, 2010 at 1:16 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Hi. I want to use _bstr_t and I have #include  and I added comsupp.lib to the library list and I still get this error.</p>
+<p>The build is driven by a vcproj so we don&#8217;t use &#8220;sources&#8221; files.  The moment I invoke _bstr_t this error results.  Is there any solution?</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-233">
+		<article id="comment-233" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/ef0300fbf69d6b8322caf854c38ab8dc?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Marty Hirsch</span> on <a href="comment-page-1/index.html#comment-233"><time pubdate datetime="2010-03-05T13:17:17+00:00">March 5, 2010 at 1:17 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Hi That&#8217;s #include comdef above, somehow the posting omitted the string comdef, maybe due to the greater than/less than characters.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-507">
+		<article id="comment-507" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/b11b89b6c15314f52cd01fe4e77c8ef6?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Steinar Meen</span> on <a href="comment-page-1/index.html#comment-507"><time pubdate datetime="2010-11-12T10:14:36+00:00">November 12, 2010 at 10:14 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanx</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-509">
+		<article id="comment-509" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/9940839b37fb8ec4b37b8d91a0d48518?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn"><a href='http://hotmail' rel='external nofollow' class='url'>sara</a></span> on <a href="comment-page-1/index.html#comment-509"><time pubdate datetime="2010-11-23T02:32:36+00:00">November 23, 2010 at 2:32 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>when i include<br />
+an error occur it is &#8216;internal compiler error&#8217;</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-529">
+		<article id="comment-529" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/bc757adc2079740b1fc5f30f7a39be6b?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn"><a href='http://sheenspace.wordpress.com/' rel='external nofollow' class='url'>Ying</a></span> on <a href="comment-page-1/index.html#comment-529"><time pubdate datetime="2011-02-17T10:19:25+00:00">February 17, 2011 at 10:19 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Thanks, dude, it is great concise post. <img src='../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-532">
+		<article id="comment-532" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/3b113ed49c46763fc5f06ce6b7a9c251?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Dano</span> on <a href="comment-page-1/index.html#comment-532"><time pubdate datetime="2011-02-26T15:59:26+00:00">February 26, 2011 at 3:59 PM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>thanks! it helps a lot, IT is the solution to the problem that we had in our work with compiling a specific dll file. (we are NOT programmers)</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-533">
+		<article id="comment-533" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/9407bc5194f1c811035a77add7afd727?s=68&d=http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn"><a href='http://devday.tistory.com' rel='external nofollow' class='url'>izeye</a></span> on <a href="comment-page-1/index.html#comment-533"><time pubdate datetime="2011-03-06T07:07:06+00:00">March 6, 2011 at 7:07 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>You saved me. Thanks!</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-656">
+		<article id="comment-656" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/0f58523135a2a1846731673ee0a5de7f?s=68&d=http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=68&r=G' class='avatar avatar-68 photo' height='68' width='68' /><span class="fn">Sam</span> on <a href="comment-page-1/index.html#comment-656"><time pubdate datetime="2012-02-08T02:39:38+00:00">February 8, 2012 at 2:39 AM</time></a> <span class="says">said:</span>
+									</div><!-- .comment-author .vcard -->
+
+				
+			</footer>
+
+			<div class="comment-content"><p>Really helpful&#8230;&#8230;&#8230;..</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+		</ol>
+
+		
+	
+									<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://ohadpr.com/wp-comments-post.php" method="post" id="commentform">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name</label> <span class="required">*</span><input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">Email</label> <span class="required">*</span><input id="email" name="email" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='22' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="66922a7f0f" /></p>					</form>
+							</div><!-- #respond -->
+						
+</div><!-- #comments -->
+
+				
+			</div><!-- #content -->
+		</div><!-- #primary -->
+
+
+	</div><!-- #main -->
+
+	<footer id="colophon" role="contentinfo">
+
+			
+
+			<div id="site-generator">
+								<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform" rel="generator">Proudly powered by WordPress</a>
+			</div>
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+
+</body>
+</html>
+<!-- Localized -->

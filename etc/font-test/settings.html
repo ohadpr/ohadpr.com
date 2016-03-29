@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="wix-ui-lib-v2.1.5/ui-lib.min.css"></link>
+    </head>
+    <body wix-ui>
+        <div>
+            <div class="accordion" wix-ctrl="Accordion">
+                <div wix-scroll="{height:400}">
+                    <div class="acc-pane">
+                        <h3>Settings</h3>
+                        <div class="acc-content" id="blah">
+                            <ul class="list">
+                                <li wix-label="Font Picker">
+                                    <div wix-param="textFont" wix-ctrl="FontPicker"></div>
+                                </li>
+                                <li wix-label="Font Style Picker">
+                                    <div wix-param="textFont2" wix-ctrl="FontStylePicker" wix-options="{value: 'Heading-L'}"></div>
+                                </li>
+                                <li wix-label="Text Color">
+                                    <div wix-param="textColor" wix-ctrl="ColorPicker" wix-options="{startWithColor: '#222222'}"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.31.0/js/Wix.js"></script>
+        <script type="text/javascript" src="wix-ui-lib-v2.1.5/ui-lib.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                Wix.UI.initialize({});
+            });
+        </script>
+    </body>
+</html>

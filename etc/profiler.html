@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>Profiler</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<ol>
+			<li>Open your browser (Chrome works best but Safari and Firefox work too, no IE please)</li>
+			<li>Drag this link <a href="javascript:(function(){function%20showResults(){var%20r=reporter.records;var%20div=document.createElement('textarea');div.innerHTML='Copy%20this%20and%20email%20to%20ohad@chegg.com%20-%20Thank%20You!\r\n\r\n'+JSON.stringify(r);div.style.zIndex=10;div.style.position='absolute';div.style.top=div.style.right=div.style.bottom=div.style.left='20%';div.style.padding='10px';div.style.background='#ffffff';div.style.overflow='auto';div.style.userSelect=div.style.webkitUserSelect=div.style.mozUserSelect=div.style.msUserSelect='auto';document.body.appendChild(div);}if(window.location.href.indexOf('&config=PROFILER')<0){window.location.href+='&config=PROFILER';return;};var%20reporter={records:[].concat(BOOK.profiler.reporters[0].records),report:function(r){this.records.push(r);}};var%20button=document.createElement('div');Chegg.utils.setStyles(button,{background:'red',width:'20px',height:'20px',position:'absolute',right:'10px',top:'43px','z-index':100,cursor:'pointer'},true);button.onclick=showResults;document.body.appendChild(button);BOOK.profiler.addReporter(reporter);})();">PROFILER</a> into your browser's bookmark bar (no need to click it first, just drag it straight from this page)</li>
+			<li>Navigate to <a target="_blank" href="http://www.chegg.com/etextbooks/beta">http://www.chegg.com/etextbooks/beta</a> and sign in with user <span id="email" style="font-weight:bold">ereader1@chegg.com</span> and password <b>testing</b></li>
+			<li>Click the big orange <b>READ NOW</b> button</li>
+			<li>A book will come up, now click the 'profiler' bookmark we previously dragged into the browser's bookmark bar, the book should re-load</li>
+			<li>Click the 'profiler' bookmark again and you should see a red box show up in the top-right corner of the book, you're doing great!</li>
+			<li>Lets play with the book - scroll down a few pages and wait for each page to load, 5-10 pages is great - Jump around, do some reading, its fun</li>
+			<li>Click the Magnifying Glass icon and then type the word <b>study</b> into the search box and click any of the search results</li>
+			<li>Remember the red box - click it now, a screen will come up with lots of text - copy that text and send it back to <a href="mailto:ohad@chegg.com">ohad@chegg.com</a></li>
+		</ol>
+		<script>
+			$(window).load(function(){
+				var num = Math.floor((Math.random()*19)+1);
+				$('#email').html('ereader' + num + '@chegg.com');
+			});
+		</script>
+	</body>
+</html>

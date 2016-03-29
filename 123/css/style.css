@@ -1,0 +1,132 @@
+html,body{
+    height: 100%;
+}
+.left-side{
+    position: absolute;
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+}
+.right-side{
+    position: absolute;
+    height: 100%;
+    left: 300px;
+    right: 0;
+    overflow: auto
+}
+.right-side canvas{
+    width: 100%;
+    height: 100%;
+}
+.text-input{
+    width: 282px;
+    height: 141px;
+}
+.slider{
+    margin-left: 20px;
+}
+.vintage{
+    background-color: #EEEEEE;
+}
+.vintage h1{
+text-align: center;
+margin: 200px auto;
+font-family: "League-Gothic", Courier;
+font-size: 200px;
+text-transform: uppercase;
+color: #707070;
+text-shadow: 5px 5px 0px #eee, 7px 7px 0px #707070;
+}
+
+.neon{
+    background-color: #000000;
+}
+.neon h1{
+text-align: center;
+margin: 200px auto;
+font-family: "Museo";
+font-size: 200px;
+text-transform: uppercase;
+color: #fff;
+text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+}
+
+.inset{
+    background-color: #474747;
+}
+.inset h1{
+text-align: center;
+margin: 200px auto;
+font-family: "League-Gothic", Courier;
+font-size: 200px;
+text-transform: uppercase;
+color: #222;
+text-shadow: 0px 2px 3px #666;
+}
+.colorpicker-input{
+    min-width: 0;
+    width: 70px;
+    margin-left: 20px !important;
+}
+.anaglyphic{
+    background-color: #fff;
+}
+.anaglyphic h1{
+text-align: center;
+margin: 200px auto;
+font-family: "League-Gothic", Courier;
+font-size: 200px;
+text-transform: uppercase;
+color: rgba(0,168,255,0.5);
+text-shadow: 8px 8px 0 rgba(255,0,180,0.5);
+}
+
+.fire{
+    background-color: #000000;
+}
+.fire h1{
+text-align: center;
+margin: 200px auto;
+font-family: "League-Gothic", Courier;
+font-size: 200px;
+text-transform: uppercase;
+color: #fff;
+text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+}
+
+
+.boardgame{
+    background-color: #EEEEEE;
+}
+.boardgame h1{
+text-align: center;
+margin: 200px auto;
+font-family: "League-Gothic", Courier;
+font-size: 200px;
+text-transform: uppercase;
+color: #fff;
+text-shadow: 10px 10px 0 #ffd217, 20px 20px 0 #5ac7ff, 30px 30px 0 #ffd217, 40px 40px 0 #5ac7ff;
+}
+.three-dimensional{
+    background-color: #0F93C4;
+}
+.three-dimensional h1{
+    text-align: center;
+    margin: 200px auto;
+    font-family: "League-Gothic", Courier;
+    font-size: 200px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 1px 0 #ccc,
+                 0 2px 0 #c9c9c9,
+                 0 3px 0 #bbb,
+                 0 4px 0 #b9b9b9,
+                 0 5px 0 #aaa,
+                 0 6px 1px rgba(0,0,0,.1),
+                 0 0 5px rgba(0,0,0,.1),
+                 0 1px 3px rgba(0,0,0,.3),
+                 0 3px 5px rgba(0,0,0,.2),
+                 0 5px 10px rgba(0,0,0,.25),
+                 0 10px 10px rgba(0,0,0,.2),
+                 0 20px 20px rgba(0,0,0,.15);
+}

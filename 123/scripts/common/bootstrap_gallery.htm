@@ -1,0 +1,148 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        .item {padding:15px 30px 30px;border-bottom:#e7e7e7 1px solid;
+            -webkit-box-shadow:0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow:0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 0 40px rgba(0, 0, 0, 0.1) inset;}
+        body {padding:0px;}
+    </style>
+    <script src="jquery-1.7.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function insertSnippet(id) {
+            parent.oUtil.obj.insertHTML(document.getElementById(id).innerHTML);
+        }
+        function insertThumbnails() {
+
+            parent.oUtil.obj.insertHTML($('#divThumbnails').html());
+
+            /*var oEditor = parent.oUtil.oEditor;
+            var oSel;
+            var oElement;
+            if (navigator.appName.indexOf('Microsoft') != -1) {
+                oSel = oEditor.document.selection.createRange();
+                if (oSel.parentElement) oElement = oSel.parentElement();
+            }
+            else {
+                oSel = oEditor.getSelection();
+                oElement = parent.getSelectedElement(oSel);
+            }
+
+            if (oElement.parentElement.parentElement.parentElement.nodeName == 'UL') {
+                oElement.id = "tmp";
+                for (var i = 0; i < $('.thumbnails li').length; i++) {
+                    $('#tmp').append('<li class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/260x180" alt="" /></a></li>');
+                }
+            }
+            else {
+                parent.oUtil.obj.insertHTML($('#divThumbnails').html());
+            }*/          
+
+        }
+        function minRow() {
+            if ($('.thumbnails li').length < 2) return;
+            $('.thumbnails li:first-child').remove();            
+        }
+        function addRow() {
+            if ($('.thumbnails li').length > 5) return;
+            $('.thumbnails').append('<li class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/260x180" alt="" /></a></li>');
+        }
+    </script>
+</head>
+<body>
+
+<div class="item">
+<div class="row-fluid">
+    <div class="span12">
+        <h4>Thumbnails</h4> 
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span10">
+
+        <div class="row-fluid" id="divThumbnails">
+	        <ul class="thumbnails">              
+		        <li class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/260x180" alt="" /></a></li>
+		        <li class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/260x180" alt="" /></a></li>          
+	        </ul>
+        </div>
+
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a class="btn" href="javascript:minRow()">-</a>
+                <a class="btn" href="javascript:addRow()">+</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="span2">
+        <div class="pull-right">
+        <a class="btn" href="javascript:insertThumbnails()">Insert</a>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="item">
+<div class="row-fluid">
+    <div class="span12">
+        <h4>Single Image (Rounded)</h4> 
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span10" id="divImg1">
+        <img src="http://placehold.it/140x140" class="img-rounded" alt="" />&nbsp;
+    </div>
+    <div class="span2">
+        <div class="pull-right"><a class="btn" href="javascript:insertSnippet('divImg1')">Insert</a></div>
+    </div>
+</div>
+</div>
+
+<div class="item">
+<div class="row-fluid">
+    <div class="span12">
+        <h4>Single Image (Circle)</h4> 
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span10" id="divImg2">
+        <img src="http://placehold.it/140x140" class="img-circle" alt="" />&nbsp;
+    </div>
+    <div class="span2">
+        <div class="pull-right"><a class="btn" href="javascript:insertSnippet('divImg2')">Insert</a></div>
+    </div>
+</div>
+</div>
+
+<div class="item">
+<div class="row-fluid">
+    <div class="span12">
+        <h4>Single Image (Polaroid)</h4> 
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span10" id="divImg3">
+        <img src="http://placehold.it/140x140" class="img-polaroid" alt="" />&nbsp;
+    </div>
+    <div class="span2">
+        <div class="pull-right"><a class="btn" href="javascript:insertSnippet('divImg3')">Insert</a></div>
+    </div>
+</div>
+</div>
+
+
+
+</body>
+</html>

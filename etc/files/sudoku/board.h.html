@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<meta name="generator" content="C++2HTML by Jasper Bedaux"><!-- To generate your own colored code visit http://www.bedaux.net/cpp2html/ -->
+
+<style type="text/css">
+.comment { color: #999999; font-style: italic; }
+.pre { color: #000099; }
+.string { color: #009900; }
+.char { color: #009900; }
+.float { color: #996600; }
+.int { color: #999900; }
+.bool { color: #000000; font-weight: bold; }
+.type { color: #FF6633; }
+.flow { color: #FF0000; }
+.keyword { color: #990000; }
+.operator { color: #663300; font-weight: bold; }
+</style></head><body>
+<pre><span class="pre">#ifndef BOARD_H_INC
+#define BOARD_H_INC
+
+#include "common.h"
+
+
+#define BOARD_SIZE		9				// horizontal/vertical size of the board
+#define BOARD_SQRT_SIZE	3					// sqrt size of board
+#define NUM_PATHS		(BOARD_SIZE*3)			// number of paths in the board (for scanning)
+</span><span class="comment">
+// board item structure (16bit unsigned short)	........ ........
+//						15     8 7      0
+// a board item can:
+//
+// 1. be empty (NONE)				00000000 00000000	all zeros
+//						15     8 7      0
+//
+// 2. contain a selected number (FIXED)		........ ....xxxx	bit 0..3 represent the number (1..9)
+//						15     8 7      0	the user chose to place in this place
+//
+// 3. contain several 'possible' items (OPTION) 1..98765 4321xxxx	the last bit is ON to indicate this status,
+//						15     8 7      0	bits 4..12 tell us what optional numbers are on 
+//
+</span><span class="pre">
+#define	BOARD_ITEM_OPTION_BIT			15					// bit where 'OPTION on/off' is stored
+#define	BOARD_ITEM_OPTION_BIT_MASK		(1&lt;&lt;BOARD_ITEM_OPTION_BIT)		// mask of the 'OPTION on/off' bit
+#define BOARD_ITEM_FIXED_MASK			0x000f					// mask of the 'FIXED' number
+#define BOARD_ITEM_OPTIONS_MASK			0x1ff0					// mask of the 'OPTIONS' numbers
+#define BOARD_ITEM_OPTIONS_START_BIT	4						// bit where 'OPTIONS' numbers start
+
+#define IS_NONE(x)	((x) == 0)
+#define IS_OPTION(x)	((x) &amp; BOARD_ITEM_OPTION_BIT_MASK)				// does this item contain 'OPTIONS'
+#define GET_FIXED(x)	((x) &amp; BOARD_ITEM_FIXED_MASK)					// get the value of the 'FIXED' number in this item (1..9,0)
+#define	HAS_FIXED(x)	GET_FIXED(x)
+#define	NO_FIXED(x)	(GET_FIXED(x) == 0)
+#define GET_OPTIONS(x)	(((x) &amp; BOARD_ITEM_OPTIONS_MASK) &gt;&gt; BOARD_ITEM_OPTIONS_START_BIT) // option 1 returned at bit 0
+#define GET_OPTION(x,o)	((GET_OPTIONS(x) &gt;&gt; ((o)-1)) &amp; 1)
+</span><span class="comment">
+// describe the status of a board
+</span><span class="keyword">enum</span> BoardStatusType<span class="operator">
+{</span>
+	BS_INCOMPLETE<span class="operator">	=</span><span class="int">	0</span><span class="operator">,</span>
+	BS_ERROR<span class="operator">		=</span><span class="int">	1</span><span class="operator">,</span>
+	BS_COMPLETE<span class="operator">		=</span><span class="int">	2</span><span class="operator">
+};</span><span class="comment">
+
+// describes the type of solution found for a certain board
+</span><span class="keyword">enum</span> SolutionType<span class="operator">
+{</span>
+	SOLUTOIN_NONE<span class="operator">		=</span><span class="int">	0</span><span class="operator">,</span>
+	SOLUTOIN_SINGLE<span class="operator">		=</span><span class="int">	1</span><span class="operator">,</span>
+	SOLUTOIN_MULTPLE<span class="operator">	=</span><span class="int">	2</span><span class="operator">,
+};</span><span class="comment">
+
+// a point
+</span><span class="keyword">struct</span> Point<span class="operator">
+{</span>
+	uint32	u<span class="operator">,</span> v<span class="operator">;
+};</span><span class="comment">
+
+// a scanning path
+</span><span class="keyword">typedef</span> Point	Path<span class="operator">[</span>BOARD_SIZE<span class="operator">];</span><span class="keyword">
+
+class</span> CBoard<span class="operator">
+{</span><span class="keyword">
+public</span><span class="operator">:</span>
+	CBoard<span class="operator">(</span><span class="type">void</span><span class="operator">);
+	~</span>CBoard<span class="operator">(</span><span class="type">void</span><span class="operator">);</span><span class="comment">
+
+	// calculate scanning-paths
+</span><span class="type">	void</span>			PreCalcPaths<span class="operator">		();</span><span class="comment">
+
+	// clear the board
+</span><span class="type">	void</span>			ClearBoard<span class="operator">			();</span><span class="comment">
+
+	// retrieves the current status of the board
+</span>	BoardStatusType	GetBoardStatus<span class="operator">		();</span><span class="comment">
+
+	// set the value of an item in the board, isOptions tells us if this is an option-mark
+	// or the final number. use '0' for val to clear the FIXED value. use 'onOff' to toggle
+	// OPTIONS values
+</span><span class="type">	void</span>			SetItem<span class="operator">				(</span><span class="type">int</span> u<span class="operator">,</span><span class="type"> int</span> v<span class="operator">,</span><span class="type"> int</span> val<span class="operator">,</span><span class="type"> bool</span> isOption<span class="operator"> =</span><span class="bool"> false</span><span class="operator">,</span><span class="type"> bool</span> onOff<span class="operator"> =</span><span class="bool"> false</span><span class="operator">);</span><span class="comment">
+	
+	// get the value of an item
+</span>	uint16			GetItem<span class="operator">				(</span><span class="type">int</span> u<span class="operator">,</span><span class="type"> int</span> v<span class="operator">);</span><span class="comment">
+
+	// scans the board and fills-in the options for all items
+</span><span class="type">	void</span>			FillPencilMarks<span class="operator">		();</span><span class="comment">
+
+
+	// apply solving rule #1 - http://www.simes.clara.co.uk/programs/sudokutechnique1.htm
+	// find if there's a cell who has only 1 option. if so, it must be that option
+</span><span class="type">	int</span>				ApplyRule1<span class="operator">			();</span><span class="comment">
+
+	// apply solving rule #2 - http://www.simes.clara.co.uk/programs/sudokutechnique2.htm
+	// find if there's a number that can be in only 1 place in a certain row/column/box. kind of inverse of rule 1
+</span><span class="type">	int</span>				ApplyRule2<span class="operator">			();</span><span class="comment">
+
+	// solve the board
+</span>	SolutionType	Solve<span class="operator">				(</span><span class="type">bool</span> determineIfMultiple<span class="operator"> =</span><span class="bool"> false</span><span class="operator">);</span><span class="comment">
+
+	// determine what type of solution is available (none, single, multiple)
+</span>	SolutionType	IsSolveable<span class="operator">			();</span><span class="comment">
+
+	// generate a new board
+</span><span class="type">	void</span>			Generate<span class="operator">			(</span>uint16 seed<span class="operator">,</span><span class="type"> int</span> difficulty<span class="operator">);</span><span class="keyword">
+
+private</span><span class="operator">:</span><span class="comment">
+	// da' board
+</span>	uint16	m_board<span class="operator">[</span>BOARD_SIZE<span class="operator">][</span>BOARD_SIZE<span class="operator">];</span><span class="comment">	// [Y][X]
+
+	// the 9*3 paths on the board (9 rows, 9 columns, 9 boxes)
+</span>	Path	m_paths<span class="operator">[</span>NUM_PATHS<span class="operator">];
+};</span><span class="pre">
+
+#endif // BOARD_H_INC
+</span></pre>
+
+</body></html>
+<!-- Localized -->

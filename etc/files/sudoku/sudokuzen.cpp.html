@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<meta name="generator" content="C++2HTML by Jasper Bedaux"><!-- To generate your own colored code visit http://www.bedaux.net/cpp2html/ -->
+
+<style type="text/css">
+.comment { color: #999999; font-style: italic; }
+.pre { color: #000099; }
+.string { color: #009900; }
+.char { color: #009900; }
+.float { color: #996600; }
+.int { color: #999900; }
+.bool { color: #000000; font-weight: bold; }
+.type { color: #FF6633; }
+.flow { color: #FF0000; }
+.keyword { color: #990000; }
+.operator { color: #663300; font-weight: bold; }
+</style></head><body>
+<pre><span class="comment">// SudokuZen.cpp : Defines the entry point for the console application.
+//
+</span><span class="pre">
+#include "..\Common\Board.h"
+#include &lt;iostream&gt;
+#include &lt;tchar.h&gt;
+#include &lt;time.h&gt;
+</span><span class="type">
+
+void</span> PrintBoard<span class="operator">(</span>CBoard<span class="operator">&amp;</span> b<span class="operator">)
+{</span><span class="flow">
+	for</span><span class="operator"> (</span><span class="type">int</span> u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span><span class="int">2</span><span class="operator">+</span><span class="int">9</span><span class="operator">*</span><span class="int">4</span><span class="operator">-</span><span class="int">1</span><span class="operator">;</span> u<span class="operator">++)</span> printf<span class="operator">(</span><span class="string">"-"</span><span class="operator">);</span>
+	printf<span class="operator">(</span><span class="string">"\n"</span><span class="operator">);</span><span class="flow">
+
+	for</span><span class="operator"> (</span><span class="type">int</span> v<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> v<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> v<span class="operator">++)
+	{</span>
+		printf<span class="operator">(</span><span class="string">"|"</span><span class="operator">);</span><span class="flow">
+
+		for</span><span class="operator"> (</span><span class="type">int</span> u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> u<span class="operator">++)
+		{</span>
+			uint16	x<span class="operator"> =</span> b<span class="operator">.</span>GetItem<span class="operator">(</span>u<span class="operator">,</span>v<span class="operator">);</span><span class="flow">
+
+			if</span><span class="operator"> (</span>NO_FIXED<span class="operator">(</span>x<span class="operator">))</span>	printf<span class="operator">(</span><span class="string">"   %c"</span><span class="operator">,</span> u<span class="operator">==</span><span class="int">2</span><span class="operator">||</span>u<span class="operator">==</span><span class="int">5</span><span class="operator">||</span>u<span class="operator">==</span><span class="int">8</span><span class="operator">?</span><span class="char">'|'</span><span class="operator">:</span><span class="char">' '</span><span class="operator">);</span><span class="flow">
+			else</span>				printf<span class="operator">(</span><span class="string">" %d %c"</span><span class="operator">,</span> GET_FIXED<span class="operator">(</span>x<span class="operator">),</span> u<span class="operator">==</span><span class="int">2</span><span class="operator">||</span>u<span class="operator">==</span><span class="int">5</span><span class="operator">||</span>u<span class="operator">==</span><span class="int">8</span><span class="operator">?</span><span class="char">'|'</span><span class="operator">:</span><span class="char">' '</span><span class="operator">);
+		}</span>
+
+		printf<span class="operator">(</span><span class="string">"\n"</span><span class="operator">);</span><span class="flow">
+		for</span><span class="operator"> (</span><span class="type">int</span> u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span><span class="int">2</span><span class="operator">+</span><span class="int">9</span><span class="operator">*</span><span class="int">4</span><span class="operator">-</span><span class="int">1</span><span class="operator">;</span> u<span class="operator">++)</span> printf<span class="operator">((</span>v<span class="operator">==</span><span class="int">2</span><span class="operator">||</span>v<span class="operator">==</span><span class="int">5</span><span class="operator">||</span>v<span class="operator">==</span><span class="int">8</span><span class="operator">)?</span><span class="string">"-"</span><span class="operator">:</span><span class="string">" "</span><span class="operator">);</span>
+		printf<span class="operator">(</span><span class="string">"\n"</span><span class="operator">);
+	}</span>
+	printf<span class="operator">(</span><span class="string">"\n"</span><span class="operator">);</span>
+
+    printf<span class="operator">(</span><span class="string">"Board Status is : "</span><span class="operator">);</span>
+
+	BoardStatusType bst<span class="operator"> =</span> b<span class="operator">.</span>GetBoardStatus<span class="operator">();</span><span class="flow">
+	if</span><span class="operator"> (</span>bst<span class="operator"> ==</span> BS_INCOMPLETE<span class="operator">)</span>		printf<span class="operator">(</span><span class="string">"INCOMPLETE"</span><span class="operator">);</span><span class="flow">
+	else if</span><span class="operator"> (</span>bst<span class="operator"> ==</span> BS_ERROR<span class="operator">)</span>		printf<span class="operator">(</span><span class="string">"ERROR"</span><span class="operator">);</span><span class="flow">
+	else if</span><span class="operator"> (</span>bst<span class="operator"> ==</span> BS_COMPLETE<span class="operator">)</span>	printf<span class="operator">(</span><span class="string">"COMPLETE"</span><span class="operator">);</span>
+	printf<span class="operator">(</span><span class="string">"\n\n"</span><span class="operator">);	
+}</span><span class="keyword">
+
+extern</span><span class="string"> "C++"</span><span class="type"> int</span> counter<span class="operator">;</span><span class="type">
+
+int</span> _tmain<span class="operator">(</span><span class="type">int</span> argc<span class="operator">,</span> _TCHAR<span class="operator">*</span> argv<span class="operator">[])
+{</span><span class="comment">
+/*	solved
+	// http://image.guardian.co.uk/sys-files/Guardian/documents/2005/06/23/GdnSudoku044_050628.pdf
+	int board[] = {
+		0,3,7,	0,0,9,	0,0,1,
+		6,0,0,	4,0,1,	0,0,0,
+		4,0,0,	8,0,0,	5,0,0,
+
+		0,2,8,	0,0,0,	0,3,7,
+		0,0,0,	0,0,0,	0,0,0,
+		7,1,0,	0,0,0,	2,4,0,
+
+		0,0,9,	0,0,7,	0,0,5,
+		0,0,0,	6,0,3,	0,0,2,
+		2,0,0,	9,0,0,	3,6,0
+	};*/
+
+/*	solved
+	// http://image.guardian.co.uk/sys-files/Guardian/documents/2005/06/23/GdnSudoku045_050629.pdf
+	int board[] = {
+		0,0,0,	7,0,8,	0,0,0,
+		4,0,5,	0,6,0,	7,0,8,
+		0,3,0,	4,0,5,	0,6,0,
+
+		1,0,2,	0,3,0,	4,0,0,
+		0,0,0,	0,0,0,	0,0,0,
+		0,0,6,	0,7,0,	8,0,9,
+
+		0,4,0,	5,0,6,	0,7,0,
+		2,0,3,	0,4,0,	5,0,6,
+		0,0,0,	2,0,3,	0,0,0
+	};*/</span><span class="comment">
+
+	// http://image.guardian.co.uk/sys-files/Guardian/documents/2005/06/23/GdnSudoku041_050624.pdf
+</span><span class="comment">/*	int board[] = {
+		0,0,1,	9,0,0,	3,0,0,
+		0,0,0,	0,0,0,	2,0,0,
+		7,6,0,	0,2,0,	0,0,9,
+
+		3,0,0,	0,6,0,	9,0,5,
+		0,0,2,	1,0,3,	4,0,0,
+		4,0,0,	0,9,0,	7,0,3,
+
+		1,0,0,	0,3,0,	0,9,7,
+		0,0,4,	0,0,9,	0,0,0,
+		0,0,5,	0,0,8,	6,0,0
+	};*/
+
+/*	// http://image.guardian.co.uk/sys-files/Guardian/documents/2005/06/23/GdnSudoku041_050624.pdf
+	int board[] = {
+		0,0,0,	0,0,0,	3,0,0,
+		0,0,0,	0,0,0,	2,0,0,
+		7,6,0,	0,2,0,	0,0,9,
+
+		3,0,0,	0,6,0,	9,0,5,
+		0,0,2,	1,0,3,	4,0,0,
+		4,0,0,	0,9,0,	7,0,3,
+
+		0,0,0,	0,3,0,	0,9,7,
+		0,0,0,	0,0,9,	0,0,0,
+		0,0,0,	0,0,8,	6,0,0
+	};*/
+
+/*	solved
+	int board[] = {
+		0,7,0,	0,2,0,	5,8,0,
+		0,1,0,	0,0,0,	0,0,0,
+		0,0,0,	0,6,0,	2,0,9,
+
+		2,8,7,	4,0,3,	0,0,0,
+		0,0,0,	0,7,0,	0,0,0,
+		0,0,0,	0,0,6,	8,7,3,
+
+		5,0,1,	0,3,0,	0,0,0,
+		0,0,0,	0,0,0,	0,4,0,
+		0,4,3,	0,1,0,	0,2,0
+	};*/
+
+/*	// solved
+	int board[] = {
+		7,0,5,	2,1,0,	0,0,0,
+		2,0,3,	0,0,9,	0,0,5,
+		0,9,1,	0,0,5,	0,6,2,
+
+		0,0,0,	1,0,0,	0,0,7,
+		1,2,4,	9,0,8,	5,0,6,
+		0,7,0,	3,5,0,	0,0,0,
+
+		0,3,0,	6,0,1,	2,0,0,
+		9,0,0,	0,4,0,	6,0,0,
+		6,0,7,	0,0,3,	0,9,8
+	};*/
+
+/*	// 17 visibiles, 1 solution
+	int board[] = {
+		0,9,8,	0,0,0,	0,0,0,
+		0,0,0,	0,7,0,	0,0,0,
+		0,0,0,	0,1,5,	0,0,0,
+
+		1,0,0,	0,0,0,	0,0,0,
+		0,0,0,	2,0,0,	0,0,9,
+		0,0,0,	9,0,6,	0,8,2,
+
+		0,0,0,	0,0,0,	0,3,0,
+		5,0,1,	0,0,0,	0,0,0,
+		0,0,0,	4,0,0,	0,2,0
+	};*/</span><span class="type">
+
+	int</span> board<span class="operator">[] = {</span><span class="int">
+		3</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">6</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">7</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+		4</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">5</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">
+		0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">	0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,</span><span class="int">0</span><span class="operator">,
+	};</span>
+
+	CBoard<span class="operator">::</span>InitMem<span class="operator">();</span>
+	
+	CBoard	b<span class="operator">;</span><span class="flow"> 
+
+	for</span><span class="operator"> (</span><span class="type">int</span> v<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> v<span class="operator">&lt;</span><span class="int">9</span><span class="operator">;</span> v<span class="operator">++)</span><span class="flow">
+		for</span><span class="operator"> (</span><span class="type">int</span> u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span><span class="int">9</span><span class="operator">;</span> u<span class="operator">++)</span>
+			b<span class="operator">.</span>SetItem<span class="operator">(</span>u<span class="operator">,</span>v<span class="operator">,</span>board<span class="operator">[</span>u<span class="operator">+</span>v<span class="operator">*</span><span class="int">9</span><span class="operator">]);</span><span class="comment">
+
+	//b.Generate(rand(), 40);	// generate a new board
+</span>
+	SolutionType r<span class="operator"> =</span>  b<span class="operator">.</span>Solve<span class="operator">(</span><span class="bool">true</span><span class="operator">);</span>
+
+	PrintBoard<span class="operator">(</span>b<span class="operator">);</span>
+
+	CBoard<span class="operator">::</span>KillMem<span class="operator">();</span><span class="flow">
+
+	return</span><span class="int"> 0</span><span class="operator">;
+}</span></pre>
+
+</body></html>
+<!-- Localized -->

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ohadpr &#187; code</title>
+	<atom:link href="http://ohadpr.com/category/code/feed/" rel="self" type="application/rss+xml" />
+	<link>http://ohadpr.com</link>
+	<description>ideas, hacks and stuff</description>
+	<lastBuildDate>Tue, 29 May 2012 07:08:58 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.3.1</generator>
+		<item>
+		<title>Countries, Approximate Lat-Lon and ISO 3166-1 alpha-2</title>
+		<link>http://ohadpr.com/2010/04/countries-approximate-lat-lon-and-iso-3166-1-alpha-2/</link>
+		<comments>http://ohadpr.com/2010/04/countries-approximate-lat-lon-and-iso-3166-1-alpha-2/#comments</comments>
+		<pubDate>Tue, 27 Apr 2010 06:02:51 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+				<category><![CDATA[code]]></category>
+
+		<guid isPermaLink="false">http://ohadpr.com/?p=252</guid>
+		<description><![CDATA[We&#8217;re working on a visualization of real-time clicks on our http://appsto.re short URL. The cheap GeoIP database we use to convert IP address to geographical coordinates only gives us country-codes. ISO 3166-1 defines the encoding of &#8221;countries, dependent territories, and special &#8230; <a href="http://ohadpr.com/2010/04/countries-approximate-lat-lon-and-iso-3166-1-alpha-2/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>We&#8217;re working on a visualization of real-time clicks on our http://appsto.re short URL. The cheap GeoIP database we use to convert IP address to geographical coordinates only gives us country-codes. <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a> defines the encoding of &#8221;countries, dependent territories, and special areas of geographical interest&#8221; into codes, and the 2-character encoding subset is defined in <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>. A country like France ends up being &#8216;FR&#8217;, Israel is &#8216;IL&#8217;, you get it.</p>
+<p>When we wanted to plot this onto Google Maps we needed to convert country-codes to <a href="http://en.wikipedia.org/wiki/Geographic_coordinate_system#Latitude_and_longitude">Lat/Lon</a> (map coordinates) and apparently there isn&#8217;t such a simple mapping. One reason may be that a country like France has a political border which is well defined but there&#8217;s no real point on the map that defines it, that&#8217;s pretty arbitrary. A bunch of companies (Google, Yahoo, etc) have what&#8217;s called Geocoders which are pieces of software that will take an address and return the Lat/Lon representation of it. Most Geocoders don&#8217;t like 2-letter country-code though, bummer.</p>
+<p>What we ended up doing is digging out this information from a few Geocoders that do like to chew up 2-character codes, and for the sake of other developers we wanted to curate the data and make it easily available and consumable for other developers. I&#8217;m including a Google Spreadhseet with all the values, as well as a JSON dictionary that gives you country name, lat and lon given a country-code. I also included this data for all USA and Canadian states. Feel free to use this to facilitate visualizations of data or anything else you think is cool.</p>
+<p><a href="../../../wp-content/uploads/2010/04/Screen-shot-2010-04-27-at-1.55.45-AM.png"><img class="alignright size-full wp-image-260" title="Screen shot 2010-04-27 at 1.55.45 AM" src="../../../wp-content/uploads/2010/04/Screen-shot-2010-04-27-at-1.55.45-AM.png" alt="" width="315" height="88" /></a>The data:</p>
+<p><a href="https://spreadsheets.google.com/ccc?key=0AlKAi_VG7SuadHFZOERJNENURE9NMmpKWDU4Rk9xbUE&hl=en">Online spreadsheet<br />
+</a><a href="../../../wp-content/uploads/2010/04/countryCodes.js">JSON file</a><br />
+<a href="../../../wp-content/uploads/2010/04/CountryLongLat.sql_.zip">MySQL Data Dump</a> (tnx Dvir Volk)</p>
+<p>And here&#8217;s the embedded data just for fun:<br />
+<iframe width='580' height='300' frameborder='0' src='https://spreadsheets.google.com/pub?key=0AlKAi_VG7SuadHFZOERJNENURE9NMmpKWDU4Rk9xbUE&hl=en&single=true&gid=0&output=html&widget=true'></iframe></p>
+]]></content:encoded>
+			<wfw:commentRss>http://ohadpr.com/2010/04/countries-approximate-lat-lon-and-iso-3166-1-alpha-2/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Localized -->

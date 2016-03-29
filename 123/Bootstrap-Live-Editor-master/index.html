@@ -1,0 +1,548 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap Live Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="bootstrap/bootstrap_extend.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class="container">
+
+<div class="row-fluid">
+    <div class="span12">
+        <br /><br />
+
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="page-header"><h1 style="font-family: 'Abel', sans-serif;font-size:50px;font-weight:normal">Bootstrap Live Editor</h1></div>
+                <p>A WYSIWYG Editor built for Bootstrap. It offers a nice and elegant way to edit and beautify html with Bootstrap ready content/snippets.</p>
+                <p>
+                The Editor is based on InnovaStudio's Editor (www.innovastudio.com), and specially customized for Bootstrap framework.</p>
+                <p>Use it in as many as website projects. <span class="label label-warning">Unlimited website license!</span>.</p>
+            </div>
+            <div class="span6">
+                <div class="pull-right">
+                <img src="images/header.png" style="float:right;width:550px" />
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Editor Demo</a></li>
+            <li><a href="#tabcode" data-toggle="tab" type="button" onclick="$('#txtHtmlCode').val(   $('#txtContent').data('liveEdit').getXHTMLBody().trim()   );">HTML Source</a></li>
+            <li><a href="#tab2" data-toggle="tab" type="button" onclick="$('#divContent').html(   $('#txtContent').data('liveEdit').getXHTMLBody()   );EmbedFont();">Preview</a></li>            
+            <li><a href="#tab3" data-toggle="tab">Quick Start</a></li>
+            <li><a href="#tab4" data-toggle="tab">Content Publishing</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#tab5" data-toggle="tab">Stylesheets</a></li>   
+                    <li><a href="#tab6" data-toggle="tab">Buttons Configuration</a></li>                                       
+                    <li><a href="#tab7" data-toggle="tab">Using File Browser</a></li>
+                    <li><a href="#tab8" data-toggle="tab">Custom Buttons</a></li>
+                    <li><a href="#tab9" data-toggle="tab">Custom Tags</a></li>
+                    <li><a href="#tab10" data-toggle="tab">Custom Dialog for Inserting HTML Content</a></li>
+                    <li><a href="#tab11" data-toggle="tab">Loading Content at Runtime</a></li>
+                    <li><a href="#tab12" data-toggle="tab">Editing Mode</a></li>
+                    <li><a href="#tab13" data-toggle="tab">Inserting &lt;DIV>, &lt;P> or &lt;BR> when pressing Enter Key</a></li>
+                    <li><a href="#tab14" data-toggle="tab">MS Word Cleaning & Paste Text</a></li>
+                    <li><a href="#tab15" data-toggle="tab">Using Basic Fonts & Disabling Google Fonts</a></li>
+                    <li><a href="#tab16" data-toggle="tab">Localization</a></li>
+                </ul>
+            </li>
+          </ul>
+          <div class="tab-content">
+
+            <div class="tab-pane active" id="tab1">
+                <div style="min-height:460px">
+
+
+                    <textarea id="txtContent" name="txtContent" rows="4" cols="30">
+                        <div class="page-header"><h1>Page header <small>Subtext for header</small></h1></div><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.</p>          
+                    </textarea>
+
+
+                </div>
+            </div>
+            <div class="tab-pane" id="tab2">
+                <div style="min-height:430px;">
+                    <div id="divContent">
+                
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab3">
+
+                <h3>Quick Start</h3>
+
+                <p>
+                The Editor can be used to replace &lt;textarea&gt; or &lt;div&gt; element.
+                </p>
+
+                <p>Files to reference:</p>
+<pre>
+&lt;script src="scripts/common/jquery-1.7.min.js" type="text/javascript">&lt;/script>
+&lt;script src="scripts/innovaeditor.js" type="text/javascript">&lt;/script>
+&lt;script src="scripts/innovamanager.js" type="text/javascript">&lt;/script>
+</pre>
+
+                <p>Usage:</p>
+<pre>
+&lt;textarea id="txtContent" rows="4" cols="30"></textarea> 
+
+&lt;script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtContent').liveEdit({
+            css: ['bootstrap/css/bootstrap.min.css', 'bootstrap/bootstrap_extend.css'] /* Apply bootstrap css into the editing area */ ,            
+            groups: [
+                    ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+                    ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+                    ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+                    ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+                    ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+                    ] /* Toolbar configuration */
+        });
+        $('#txtContent').data('liveEdit').startedit(); /* Run the Editor */
+    });
+&lt;/script>
+</pre>
+                <p>
+                You can get/read the generated HTML content using:                
+                </p>
+<pre>
+$('#content').data('liveEdit').getXHTMLBody(); 
+</pre>
+                <p>
+                To get full HTML content, use:                
+                </p>
+<pre>
+$('#content').data('liveEdit').getXHTML(); 
+</pre>  
+
+            </div>
+            <div class="tab-pane" id="tab4">
+    
+                <h3>Content Publishing</h3>
+
+                <p>
+                When you display/publish your content result anywhere on your web sites, please include the following:</p>
+
+                <p>1. Bootstrap Framework.</p>
+<pre>
+&lt;link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+&lt;link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+</pre>
+
+                <p>2. Google Font integration scripts.</p>
+<pre>
+&lt;script src="scripts/common/jquery-1.7.min.js" type="text/javascript">&lt;/script>
+&lt;script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript">&lt;/script>
+&lt;script src="scripts/common/webfont.js" type="text/javascript">&lt;/script>
+</pre>
+
+            </div>
+            <div class="tab-pane" id="tab5">
+<h3>Stylesheets</h3>
+<p>To apply stylesheets to the Editor:</p>
+<pre>
+$('#txtContent').liveEdit({
+    css: ['bootstrap/css/bootstrap.min.css', 'bootstrap/bootstrap_extend.css']
+    });
+</pre>
+<p>
+The above example applies Bootstrap framework and additional css to the Editor.
+</p> 
+            </div>
+            <div class="tab-pane" id="tab6">
+
+<h3>Buttons Configuration</h3>
+<p>To configure buttons:</p>
+<pre>
+$('#txtContent').liveEdit({          
+    groups: [
+            ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+            ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+            ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+            ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+            ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+            ]
+});
+</pre>
+<p>
+    Below are the list of available buttons:
+    <ul>
+    <li>Bold</li>
+    <li>Italic</li>
+    <li>Underline</li>
+    <li>Strikethrough</li>
+    <li>Superscript</li>
+    <li>Subscript</li>
+    <li>ForeColor</li>
+    <li>BackColor</li>
+    <li>RemoveFormat</li>
+    <li>Paragraph</li>
+    <li>FontName</li>
+    <li>FontSize</li>
+    <li>FontDialog</li>
+    <li>TextDialog</li>
+    <li>CompleteTextDialog</li>
+    <li>Quote</li>
+    <!--<li>Styles <i>(Style Selection)</i></li>-->
+    <li>JustifyLeft</li>
+    <li>JustifyCenter</li>
+    <li>JustifyRight</li>
+    <li>JustifyFull</li>
+    <li>Bullets</li>
+    <li>Numbering</li>
+    <li>Indent</li>
+    <li>Outdent</li>
+    <li>TableDialog</li>
+    <li>FlashDialog</li>
+    <li>LinkDialog</li>
+    <li>ImageDialog</li>
+    <li>YoutubeDialog</li>
+    <li>CharsDialog <i>(Special Characters Dialog)</i></li>
+    <li>SearchDialog</li>
+    <li>SourceDialog <i>(HTML Editor Dialog)</i></li>
+    <li>Emoticons</li>
+    <li>Line</li>
+    <!--<li>InternalLink <i>(Custom)</i></li>
+    <li>CustomObject <i>(Custom)</i></li>-->
+    <li>CustomTag<!-- <i>(Custom)</i>--></li>
+    <li>Undo</li>
+    <li>Redo</li>
+    <li>FullScreen</li>
+    <li>BRK <i>(Line Break)</i></li>
+    </ul>
+</p> 
+
+
+            </div>
+            <div class="tab-pane" id="tab7">
+
+                    <h3>Using File Browser</h3>
+                    <p>The package contains a sample & ready to use File Browser. If enabled, can be used directly from Image & Link dialog.
+                        <img src="images/assets.jpg" />
+                        <img src="images/assets2.jpg" />
+                    </p>
+                    <p>
+                    To enable custom file browser in the Image & Link dialogs:</p>
+<pre>
+$('#txtContent').liveEdit({
+    fileBrowser: '/assetmanager/asset.php'
+    });
+</pre>
+                    Or
+<pre>
+$('#txtContent').liveEdit({
+    fileBrowser: '/assetmanager/asset.aspx'
+    });
+</pre>
+
+                    <p>
+                    To specify folder location to browse, set the <b>base</b> variable (in asset.php, asset.asp or asset.apsx):
+                    </p>
+<pre>
+var base = "/images";
+</pre>
+
+                    <p>
+                    To disable the Upload & Delete files and Create & Delete folders features, set the <b>readonly</b> variable to <b>true</b> (in asset.php, asset.asp or asset.apsx):
+                    </p>
+<pre>
+var readonly = true;
+</pre>
+
+                    <p>
+                    Some applications require File Browser that returns full file path (eg. in Newsletter editing, etc). To enable full file path feature, set the <b>fullpath</b> variable to <b>true</b> (in asset.php, asset.asp or asset.apsx):
+                    </p>
+<pre>
+var fullpath = true;
+</pre>
+
+            </div>
+            <div class="tab-pane" id="tab8">
+
+                    <h3>Custom Buttons</h3>
+                    <p>
+                    You can add your own custom buttons:</p>
+<pre>
+$('#txtContent').liveEdit({
+    arrCustomButtons: [
+            ["MyCustomButton1", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"],
+            ["MyCustomButton2", "alert('Custom Command here..')", "Caption..", "btnCustom2.gif"]
+            ],
+    groups: [
+            ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+            ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+            ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+            ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "<span style="color:#c90000">MyCustomButton1</span>", "<span style="color:#c90000">MyCustomButton2</span>"]],
+            ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+            ]
+    });
+</pre>
+<p>
+Button image file is located in <b>scripts/icons/</b> folder. Use <b>btnCustom1.gif</b>, <b>btnCustom2.gif</b>, .. or create your own button image.
+</p>
+                    
+
+            </div>
+            <div class="tab-pane" id="tab9">
+            
+                    <h3>Custom Tags</h3>
+                    <p>
+                    With this feature, you can insert predefined custom tags into the current Editor content.
+                    Custom Tag insertion is a feature that is commonly used in mailing applications or template editing in web content management systems.
+                    </p>
+<pre>
+$('#txtContent').liveEdit({          
+    groups: [
+            ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+            ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+            ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+            ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "<span style="color:#c90000">CustomTag</span>"]],
+            ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+            ],
+    arrCustomTag: [
+            ["First Name", "[%FIRSTNAME%]"], 
+            ["Last Name", "[%LASTNAME%]"], 
+            ["Email", "[%EMAIL%]"]
+            ]
+});
+</pre>
+
+            </div>
+            <div class="tab-pane" id="tab10">
+
+                    <h3>Custom Dialog for Inserting HTML Content</h3>
+                    <p>
+                    It is possible to use custom button to open a custom dialog, and from the dialog you can insert custom HTML into the editor.
+                    </p>
+<pre>
+$('#txtContent').liveEdit({
+    arrCustomButtons: [
+            ["MyCustomButton", "modalDialog('my_custom_dialog.htm')", "Caption..", "btnCustom1.gif"]
+            ],
+    groups: [
+            ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+            ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+            ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+            ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "<span style="color:#c90000">MyCustomButton</span>"]],
+            ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+            ]
+    });
+</pre>
+<p>
+The above example opens my_custom_dialog.htm. From this page, to insert custom HTML:
+</p>
+
+<pre>
+var sHTML = "&lt;p>Best Wishes&lt;/p>";
+var obj = parent.oUtil.obj;
+obj.insertHTML(sHTML);
+</pre>
+
+
+            </div>
+            <div class="tab-pane" id="tab11">
+            
+                    <h3>Loading Content at Runtime</h3>
+                    <p>
+                    To load content at runtime:
+                    </p>
+<pre>
+$('#txtContent').data('liveEdit').putHTML(sHTML);
+</pre>
+<p>
+where sHTML is the full HTML content. Note that putHTML() will also replace the current content style (defined by css property).
+</p>
+<br />
+<p>
+To load HTML Body content:
+</p>
+<pre>
+$('#txtContent').data('liveEdit').loadHTML(sHTML);
+</pre>
+<p>
+where sHTML is the HTML Body content.
+</p>
+            
+            </div>
+            <div class="tab-pane" id="tab12">
+
+                    <h3>Editing Mode</h3>
+                    <p>
+                    To enable full html editing, set <b>mode</b> property to "XHTML". The default value is "XHTMLBody" (for editing body content only).
+                    </p>
+<pre>
+$('#txtContent').liveEdit({
+    mode: 'XHTML'
+    });
+</pre>
+
+            </div>
+            <div class="tab-pane" id="tab13">
+            
+                    <h3>Inserting &lt;DIV>, &lt;P> or &lt;BR> when pressing Enter Key</h3>
+                    <p>
+                    You can configure the editor to insert &lt;DIV>, &lt;P> or &lt;BR> when pressing enter key.
+                    </p>
+<pre>
+$('#txtContent').liveEdit({
+    returnKeyMode: 1
+    });
+</pre>
+                    <p>
+                    Possible values are:
+                    </p>
+                    <ul>
+                        <li>0: follow browser default.
+                        With this option, tag inserted when pressing Enter key is depending on browser.
+                        IE8 and lower will insert P and IE9 insert DIV. Firefox always insert BR while Chrome/Safari inserts DIV.</li>
+                        <li>1: always insert DIV</li>
+                        <li>2: always insert BR</li>
+                        <li>3: always insert P (default)</li>
+                    </ul>
+
+            </div>
+            <div class="tab-pane" id="tab14">
+            
+                    <h3>MS Word Cleaning & Paste Text</h3>
+                    <p>
+                    By default, when user paste content into editing panel (using CTRL+V), the editor will clean the content and remove any non html standard tags.
+                    This is particullary useful for paste content from other resource like MS Word.
+                    </p>
+                    <p>
+                    However you can also configure editor to remove any html tags from content pasted into editor using pasteTextOnCtrlV property:
+                    </p>
+<pre>
+$('#txtContent').liveEdit({
+    pasteTextOnCtrlV: true
+    });
+</pre>
+
+
+            </div>
+            <div class="tab-pane" id="tab15">
+            
+                <h3>Using Basic Fonts & Disabling Google Fonts</h3>
+                <p>
+                To use basic font dropdown, add "FontName" to the buttons confguration:
+                </p>
+<pre>
+$('#txtContent').liveEdit({          
+    groups: [
+            ["group1", "", ["Bold", "Italic", "Underline", <span style="color:#c90000">"FontName"</span>, "ForeColor", "RemoveFormat"]],
+            ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+            ["group3", "", ["Paragraph", "FontSize", "TextDialog"]],
+            ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+            ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+            ]
+});
+</pre>
+<p>
+To hide Google Font dialog, remove "FontDialog" from the buttons confguration. 
+If you do not use Google Fonts, then the following include files are not required (can be removed):
+</p>
+<pre>
+&lt;script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript">&lt;/script>
+&lt;script src="scripts/common/webfont.js" type="text/javascript">&lt;/script>
+</pre>
+
+            </div>
+            <div class="tab-pane" id="tab16">
+
+                    <h3>Localization</h3>
+                    <p>
+                    You can localize the Editor to be displayed in specific language by adding a language include file <span style="text-decoration:underline">before</span> all the required Editor includes, for example:
+                    </p>
+<pre>
+&lt;script language="Javascript" src="<span style="color:#c90000">scripts/language/da-DK/editor_lang.js</span>">&lt;/script>
+</pre>
+                    <p>
+                    The current available language files are located in folder <b>scripts/language/</b>.  If no language file specified, English version will be used.
+                    </p>
+                    <p>
+                    <b>Note: </b>
+                    <ul>
+                    <li>Most of the available translations are not complete yet. </li>
+                    <li>To translate the Editor into your language, open & edit language files in folder: <br />
+                    - scripts\language\<br />
+                    - scripts\common\language\
+                    </li>
+                    </ul>
+                    </p>
+
+            </div>
+            <div class="tab-pane" id="tab17">
+            
+            </div>
+
+            <div class="tab-pane" id="tabcode">
+                <p class="alert">
+                This is just a quick source view. You can use "HTML Editor" button <img class="img-polaroid" src="images/source.png" /> on the Editor toolbar to open the default source view with code coloring & formatting.
+                </p>
+                <textarea id="txtHtmlCode" class="span12" style="height:377px" onkeyup="$('#txtContent').data('liveEdit').loadHTML(this.value);"></textarea> 
+
+            </div>
+          
+          </div>
+        </div>
+
+        
+    </div>
+</div>
+
+<br />
+<h3>Examples</h3>
+<ul>
+<li><a href="index_clickedit_textarea.html" title="Edit on Click">Basic Usage</a></li>
+<li><a href="index_clickedit_div.html" title="Edit on Click">Edit on Click</a></li>
+<li><a href="index_clickedit_dialog.html" title="Edit on Modal">Edit on Modal</a></li>
+</ul>
+
+
+<br />
+<hr />
+<div style="font-size:11px">Copyright © 2012, INNOVASTUDIO (www.InnovaStudio.com). All rights reserved.</div>
+
+</div>
+
+<script src="scripts/common/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="scripts/innovaeditor.js" type="text/javascript"></script>
+<script src="scripts/innovamanager.js" type="text/javascript"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript"></script>
+<script src="scripts/common/webfont.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtContent').liveEdit({
+            height: 450,
+            css: ['bootstrap/css/bootstrap.min.css', 'bootstrap/bootstrap_extend.css'],            
+            groups: [
+                    ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+                    ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+                    ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+                    ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+                    ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
+                    ]
+        });
+        $('#txtContent').data('liveEdit').startedit();
+    });
+</script>
+
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+</body>
+</html>

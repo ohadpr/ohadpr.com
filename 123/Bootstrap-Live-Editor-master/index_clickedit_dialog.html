@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap Live Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="bootstrap/bootstrap_extend.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row-fluid">
+        <div class="span12">
+            <br /><br />
+            <a href="index.html" title="Index">Index</a>
+            <div style="text-align:right;">
+                <input id="btnEdit" class="btn" type="button" onclick="edit()" value="Click to Edit" />
+            </div>
+
+            <div id="content">
+               <div class="page-header">
+		            <h1>Bootstrap Live Editor <small>a WYSIWYG Editor for responsive content</small></h1>        
+                </div>
+                <p>A WYSIWYG Editor built for Bootstrap. It offers a nice and elegant way to edit and beautify html with Bootstrap ready content/snippets. 
+                </p>
+                <p>
+                The Editor is based on InnovaStudio's Editor (www.innovastudio.com), and specially customized for Bootstrap framework for Warpbootstrap users!
+                </p>
+                <p>
+                Use it in as many as website projects.
+                </p>
+            </div>
+
+            <br />
+            <hr />
+            <div style="font-size:11px">Copyright © 2012, INNOVASTUDIO (www.InnovaStudio.com). All rights reserved.</div>
+        
+        </div>
+    </div>
+
+</div>
+
+<script src="scripts/common/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="scripts/innovaeditor.js" type="text/javascript"></script>
+<script src="scripts/innovamanager.js" type="text/javascript"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript"></script>
+<script src="scripts/common/webfont.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#content').liveEdit({
+            modal_id: 'divEditor',
+            height: 400,
+            css: ['bootstrap/css/bootstrap.min.css', 'bootstrap/bootstrap_extend.css'] /* Apply bootstrap css into the editing area */,
+            groups: [
+                    ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+                    ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+                    ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+                    ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+                    ["group5", "", ["Undo", "Redo", "SourceDialog"]]
+                    ] /* Toolbar configuration */
+        });
+
+
+        $('.modal').modalResponsiveFix({ debug: true })
+        $('.modal').touchScroll();
+    });
+
+    function edit() {
+        $('#content').data('liveEdit').startedit();
+
+        $('#modalEditor').modal('show');
+    }
+
+    function save() {
+        var sHtml = $('#content').data('liveEdit').getXHTMLBody(); //Use before finishedit()
+
+        $('#content').data('liveEdit').finishedit();
+
+        EmbedFont(); //Apply Google Font
+
+        //alert(sHtml); /*You can use the sHtml for any purpose, eg. saving the content to your database, etc, depend on you custom app */
+
+        $('#modalEditor').modal('hide');
+    }
+
+</script>
+
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!-- INCLUDE THIS SECTION FOR USING MODAL DIALOG -->
+<div class="modal hide fade" id="modalEditor" tabindex="-1" role="dialog" aria-labelledby="modalEditorLabel" aria-hidden="true" style="">
+    <div class="modal-body">
+        <div id="divEditor"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-primary" onclick="save()"> &nbsp; Ok &nbsp; </button>
+    </div>
+</div>
+<!-- /INCLUDE THIS SECTION FOR USING MODAL DIALOG -->
+
+</body>
+</html>

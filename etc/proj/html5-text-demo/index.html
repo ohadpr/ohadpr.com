@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>HTML5 Text Demo</title>
+		<script src="js/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-ui-1.8.custom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/museo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/flashMob.js" type="text/javascript" charset="utf-8"></script>
+		
+		<link type="text/css" href="css/base/jquery.ui.all.css" rel="stylesheet" /> 
+		
+		<script type="text/javascript">
+		
+			var sliders = [50,0];
+			var flashMob;
+
+			function updateText() {
+				flashMob.updateText({
+					str: 	$("#input_text").val(),
+					font: 	"Museo",
+					size: 	5+sliders[0]*18/50 || 30,
+				});
+			}
+			
+			function layoutText() {
+				flashMob.layoutText({
+					offset: 		sliders[1]*30,
+					isDrawMarkers: 	$("#markers").attr('checked') ? 1 : 0
+				});
+			}
+		
+			// on load
+			$(document).ready(function() {
+				flashMob = new flashMob();
+				flashMob.init("renderTarget", 512, 384);
+								
+				// handle changes to text
+				$("#input_text").keyup(function() {
+					updateText();
+					layoutText();
+				});
+				
+				// font size changes
+				$("#slider0").slider({
+					value: sliders[0],
+					slide: function(event, ui) {
+						sliders[0] = ui.value;
+						updateText();
+						layoutText();
+					}
+				});
+
+				// text offset changes
+				$("#slider1").slider({
+					value: sliders[1],
+					slide: function(event, ui) {
+						sliders[1] = ui.value;
+						layoutText();
+					}
+				});
+				
+				$("#markers").change(function() {
+					layoutText();
+				});
+				
+				
+				// set startup scenario
+				$("#input_text").val('the quick brown fox').keyup();
+			});
+		</script>
+	</head>
+	<body>		
+	</body>
+</html>
+
+<!-- Localized -->

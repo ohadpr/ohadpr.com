@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html dir="ltr" lang="en-US">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>libraries for fetching stuff off the net, WinInet, libcurl | ohadpr</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/twentyeleven/style.css" />
+<link rel="pingback" href="../../../xmlrpc.php.html" />
+<!--[if lt IE 9]>
+<script src="../../../wp-content/themes/twentyeleven/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="ohadpr &raquo; libraries for fetching stuff off the net, WinInet, libcurl Comments Feed" href="feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../xmlrpc-rsd.php.html" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='My shot laptop just woke up' href='../../08/my-shot-laptop-just-woke-up/index.html' />
+<link rel='next' title='Nintendo DS Lite' href='../nintendo-ds-lite/index.html' />
+<meta name="generator" content="WordPress 3.3.1" />
+<link rel='canonical' href='index.html' />
+<link rel='shortlink' href='../../../index-p=31.html' />
+</head>
+
+<body class="single single-post postid-31 single-format-standard singular two-column right-sidebar">
+<div id="page" class="hfeed">
+	<header id="branding" role="banner">
+			<hgroup>
+				<h1 id="site-title"><span><a href="../../../index.html" title="ohadpr" rel="home">ohadpr</a></span></h1>
+				<h2 id="site-description">ideas, hacks and stuff</h2>
+			</hgroup>
+
+			
+								<form method="get" id="searchform" action="http://ohadpr.com/">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" id="s" placeholder="Search" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+			
+			<nav id="access" role="navigation">
+				<h3 class="assistive-text">Main menu</h3>
+								<div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+				<div class="skip-link"><a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+								<div class="menu"><ul><li ><a href="../../../index.html" title="Home">Home</a></li><li class="page_item page-item-2"><a href="../../../about/index.html">About</a></li><li class="page_item page-item-164"><a href="../../../privacy-policy/index.html">Privacy Policy</a></li><li class="page_item page-item-223"><a href="../../../sitemap/index.html">sitemap</a></li></ul></div>
+			</nav><!-- #access -->
+	</header><!-- #branding -->
+
+
+	<div id="main">
+		<div id="primary">
+			<div id="content" role="main">
+
+				
+					<nav id="nav-single">
+						<h3 class="assistive-text">Post navigation</h3>
+						<span class="nav-previous"><a href="../../08/my-shot-laptop-just-woke-up/index.html" rel="prev"><span class="meta-nav">&larr;</span> Previous</a></span>
+						<span class="nav-next"><a href="../nintendo-ds-lite/index.html" rel="next">Next <span class="meta-nav">&rarr;</span></a></span>
+					</nav><!-- #nav-single -->
+
+					
+<article id="post-31" class="post-31 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">libraries for fetching stuff off the net, WinInet, libcurl</h1>
+
+				<div class="entry-meta">
+			<span class="sep">Posted on </span><a href="index.html" title="7:40 AM" rel="bookmark"><time class="entry-date" datetime="2006-12-15T07:40:00+00:00" pubdate>December 15, 2006</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="../../../author/ohad/index.html" title="View all posts by ohad" rel="author">ohad</a></span></span>		</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I used to use WinInet until now, had it wrapped around with some code that evolved over the years, t&#8217;was ok.</p>
+<p>Then this other I suddenly had to send a packet out of a specific connection and guess what&#8230; WinInet doesn&#8217;t support that. Neither does WinHTTP (WinInet&#8217;s predecessor).</p>
+<p>So, looking around I bumped into <a href="http://curl.haxx.se/">libcurl</a>, which I&#8217;ve tried to ignore all these years. Why ignore ? well because it looks big, and when a piece of code looks big it&#8217;s hard for it to attract coders. The bigger the code is, the higher the changes of an unknown convention of programming.</p>
+<p>Guess what, this is what it takes to do download something with libcurl:</p>
+<blockquote><p>CString urlopen(const TCHAR* url)<br />{<br />    USES_CONVERSION;</p>
+<p>    CURL* c = curl_easy_init();<br />    ByteBucket    bb;</p>
+<p>    curl_easy_setopt(c, CURLOPT_URL, T2A(url));<br />    curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, write_data);<br />    curl_easy_setopt(c, CURLOPT_WRITEDATA, &#038;bb);<br />    CURLcode success = curl_easy_perform(c);</p>
+<p>    bb.AddByte(0);    // null-termination<br />    return CString( A2T((char*)bb.GetData()) );<br />}</p>
+<p>static size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp)<br />{<br />    ByteBucket*    bb = (ByteBucket*)userp;<br />    bb->AddBuffer((BYTE*)buffer, size*nmemb);<br />    return size*nmemb;<br />}</p></blockquote>
+<p>Fantastic ha ? ByteBucket is a trivial class I wrote that helps with these sort of things.</p>
+<p>So isn&#8217;t it funny ? fearing from having to deal with lots of curl code I ended up with lots of WinInet code, while eventually the libcurl code was much simpler to work with.</p>
+<p>Conclusion ? Fear is a programmer&#8217;s worst enemy&#8230; I think.</p>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was posted in <a href="../../../category/index.html" title="View all posts in " rel="category tag"></a> by <a href="../../../author/ohad/index.html">ohad</a>. Bookmark the <a href="index.html" title="Permalink to libraries for fetching stuff off the net, WinInet, libcurl" rel="bookmark">permalink</a>.		
+			</footer><!-- .entry-meta -->
+</article><!-- #post-31 -->
+
+						<div id="comments">
+	
+	
+	
+									<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://ohadpr.com/wp-comments-post.php" method="post" id="commentform">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name</label> <span class="required">*</span><input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">Email</label> <span class="required">*</span><input id="email" name="email" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='31' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c33a49e25b" /></p>					</form>
+							</div><!-- #respond -->
+						
+</div><!-- #comments -->
+
+				
+			</div><!-- #content -->
+		</div><!-- #primary -->
+
+
+	</div><!-- #main -->
+
+	<footer id="colophon" role="contentinfo">
+
+			
+
+			<div id="site-generator">
+								<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform" rel="generator">Proudly powered by WordPress</a>
+			</div>
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+
+</body>
+</html>
+<!-- Localized -->

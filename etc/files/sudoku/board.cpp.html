@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<meta name="generator" content="C++2HTML by Jasper Bedaux"><!-- To generate your own colored code visit http://www.bedaux.net/cpp2html/ -->
+
+<style type="text/css">
+.comment { color: #999999; font-style: italic; }
+.pre { color: #000099; }
+.string { color: #009900; }
+.char { color: #009900; }
+.float { color: #996600; }
+.int { color: #999900; }
+.bool { color: #000000; font-weight: bold; }
+.type { color: #FF6633; }
+.flow { color: #FF0000; }
+.keyword { color: #990000; }
+.operator { color: #663300; font-weight: bold; }
+</style></head><body>
+<pre><span class="pre">#include "board.h"
+#include "os.h"
+#include &lt;string.h&gt;
+</span><span class="comment">
+
+/*
+
+	TODO:
+	-----
+
+	* When solving, instead of finding the first empty cell, pick a random one
+	* when generating, make a list of all the cells, random-order it, and remove one by one as long as there's a single result ?
+
+*/</span>
+
+
+
+CBoard<span class="operator">::</span>CBoard<span class="operator">(</span><span class="type">void</span><span class="operator">)
+{</span>
+	PreCalcPaths<span class="operator">();</span>
+
+	ClearBoard<span class="operator">();
+}</span>
+
+CBoard<span class="operator">::~</span>CBoard<span class="operator">(</span><span class="type">void</span><span class="operator">)
+{
+}</span><span class="type">
+
+void</span> CBoard<span class="operator">::</span>PreCalcPaths<span class="operator">()
+{</span><span class="flow">
+	for</span><span class="operator"> (</span><span class="type">int</span> i<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> i<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> i<span class="operator">++)
+	{</span>
+		Path<span class="operator">	&amp;</span>row<span class="operator">	=</span> m_paths<span class="operator">[</span>i<span class="operator">];</span>
+		Path<span class="operator">	&amp;</span>col<span class="operator">	=</span> m_paths<span class="operator">[</span>BOARD_SIZE<span class="operator">+</span>i<span class="operator">];</span>
+		Path<span class="operator">	&amp;</span>box<span class="operator">	=</span> m_paths<span class="operator">[</span>BOARD_SIZE<span class="operator">*</span><span class="int">2</span><span class="operator">+</span>i<span class="operator">];</span>
+
+		uint32 sU<span class="operator"> = (</span>i<span class="operator">%</span><span class="int">3</span><span class="operator">)*</span><span class="int">3</span><span class="operator">;</span>
+		uint32 sV<span class="operator"> = (</span>i<span class="operator">/</span><span class="int">3</span><span class="operator">)*</span><span class="int">3</span><span class="operator">;</span><span class="flow">
+
+		for</span><span class="operator"> (</span><span class="type">int</span> x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> x<span class="operator">++)
+		{</span>
+			row<span class="operator">[</span>x<span class="operator">].</span>u<span class="operator"> =</span> x<span class="operator">;</span>
+			row<span class="operator">[</span>x<span class="operator">].</span>v<span class="operator"> =</span> i<span class="operator">;</span>
+
+			col<span class="operator">[</span>x<span class="operator">].</span>u<span class="operator"> =</span> i<span class="operator">;</span>
+			col<span class="operator">[</span>x<span class="operator">].</span>v<span class="operator"> =</span> x<span class="operator">;</span>
+
+			box<span class="operator">[</span>x<span class="operator">].</span>u<span class="operator"> =</span> sU<span class="operator"> + (</span>x<span class="operator">%</span><span class="int">3</span><span class="operator">);</span>
+			box<span class="operator">[</span>x<span class="operator">].</span>v<span class="operator"> =</span> sV<span class="operator"> + (</span>x<span class="operator">/</span><span class="int">3</span><span class="operator">);
+		}
+	}
+}</span><span class="type">
+
+void</span> CBoard<span class="operator">::</span>ClearBoard<span class="operator">()
+{</span>
+	memset<span class="operator">(</span>m_board<span class="operator">,</span><span class="int"> 0</span><span class="operator">,</span><span class="keyword"> sizeof</span><span class="operator">(</span>m_board<span class="operator">));
+}</span>
+
+BoardStatusType	CBoard<span class="operator">::</span>GetBoardStatus<span class="operator">()
+{</span><span class="type">
+	bool</span>	foundIncompleteness<span class="operator"> =</span><span class="bool"> false</span><span class="operator">;</span><span class="type">
+	int</span>		nineBitsOn<span class="operator">			=</span><span class="int"> 0x3fe</span><span class="operator">;</span><span class="comment">	//	00000011 11111110
+						  			   //	   15     8 7      0
+</span><span class="flow">
+	for</span><span class="operator"> (</span><span class="type">int</span> p<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> p<span class="operator">&lt;</span>NUM_PATHS<span class="operator">;</span> p<span class="operator">++)
+	{</span>
+		Path<span class="operator">	&amp;</span>path<span class="operator">	=</span> m_paths<span class="operator">[</span>p<span class="operator">];</span><span class="type">
+		int</span>		sum<span class="operator">		=</span><span class="int"> 0</span><span class="operator">;</span><span class="type">
+		int</span>		bit<span class="operator">;</span>
+
+		sum<span class="operator"> =</span><span class="int"> 0</span><span class="operator">;</span><span class="flow">
+
+		for</span><span class="operator"> (</span><span class="type">int</span> i<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> i<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> i<span class="operator">++)
+		{</span>
+			bit<span class="operator"> =</span><span class="int"> 1</span><span class="operator"> &lt;&lt;</span> GET_FIXED<span class="operator">(</span>m_board<span class="operator">[</span>path<span class="operator">[</span>i<span class="operator">].</span>v<span class="operator">][</span>path<span class="operator">[</span>i<span class="operator">].</span>u<span class="operator">]);</span><span class="flow">
+			if</span><span class="operator"> (</span>sum<span class="operator"> &amp;</span> nineBitsOn<span class="operator"> &amp;</span> bit<span class="operator">)
+			{</span><span class="flow">
+				return</span> BS_ERROR<span class="operator">;
+			}</span>
+            sum<span class="operator"> |=</span> bit<span class="operator">;
+		}</span><span class="flow">
+		if</span><span class="operator"> (</span>sum<span class="operator"> !=</span> nineBitsOn<span class="operator">)</span> foundIncompleteness<span class="operator"> =</span><span class="bool"> true</span><span class="operator">;
+	}</span><span class="comment">
+
+	// the board is solved
+</span><span class="flow">	return</span> foundIncompleteness<span class="operator"> ?</span> BS_INCOMPLETE<span class="operator"> :</span> BS_COMPLETE<span class="operator">;
+}</span><span class="type">
+
+void</span> CBoard<span class="operator">::</span>SetItem<span class="operator">(</span><span class="type">int</span> u<span class="operator">,</span><span class="type"> int</span> v<span class="operator">,</span><span class="type"> int</span> val<span class="operator">,</span><span class="type"> bool</span> isOption<span class="operator">,</span><span class="type"> bool</span> onOff<span class="operator">)
+{</span><span class="comment">
+	// range check
+</span><span class="flow">	if</span><span class="operator"> (</span>u<span class="operator"> &lt;</span><span class="int"> 0</span><span class="operator"> ||</span> u<span class="operator"> &gt;=</span> BOARD_SIZE<span class="operator"> ||</span> v<span class="operator"> &lt;</span><span class="int"> 0</span><span class="operator"> ||</span> v<span class="operator"> &gt;=</span> BOARD_SIZE<span class="operator"> ||</span> val<span class="operator"> &gt;</span><span class="int"> 10</span><span class="operator">)</span><span class="flow"> return</span><span class="operator">;</span><span class="comment">
+
+	// our item
+</span>	uint16<span class="operator">&amp;</span>	item<span class="operator"> =</span> m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">];</span><span class="flow">
+
+	if</span><span class="operator"> (!</span>isOption<span class="operator">)
+	{</span>
+		item<span class="operator"> =</span> val<span class="operator">;</span><span class="comment">										// set the fixed value and remove any options
+		//item &amp;= ~BOARD_ITEM_FIXED_MASK;							// remove any previously stored FIXED number
+		//item = val;										// store the new value (0..10)
+</span><span class="operator">	}</span><span class="flow">
+	else</span><span class="operator">
+	{</span>
+		uint16 shift<span class="operator"> =</span> BOARD_ITEM_OPTIONS_START_BIT<span class="operator"> +</span> val<span class="operator"> -</span><span class="int"> 1</span><span class="operator">;</span><span class="flow">
+		if</span><span class="operator"> (</span>onOff<span class="operator">)</span>	item<span class="operator"> |= (</span><span class="int">1</span><span class="operator">&lt;&lt;</span>shift<span class="operator">);</span><span class="comment">	// turn on
+</span><span class="flow">		else</span>		item<span class="operator"> &amp;= ~(</span><span class="int">1</span><span class="operator">&lt;&lt;</span>shift<span class="operator">);</span><span class="comment">	// turn off
+</span><span class="operator">	}
+}</span>
+
+uint16 CBoard<span class="operator">::</span>GetItem<span class="operator">(</span><span class="type">int</span> u<span class="operator">,</span><span class="type"> int</span> v<span class="operator">)
+{</span><span class="comment">
+	// range check
+</span><span class="flow">	if</span><span class="operator"> (</span>u<span class="operator"> &lt;</span><span class="int"> 0</span><span class="operator"> ||</span> u<span class="operator"> &gt;=</span> BOARD_SIZE<span class="operator"> ||</span> v<span class="operator"> &lt;</span><span class="int"> 0</span><span class="operator"> ||</span> v<span class="operator"> &gt;=</span> BOARD_SIZE<span class="operator">)</span><span class="flow"> return</span><span class="int"> 0xffff</span><span class="operator">;</span><span class="flow">
+
+	return</span> m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">];
+}</span><span class="type">
+
+void</span> CBoard<span class="operator">::</span>FillPencilMarks<span class="operator">()
+{</span><span class="comment">
+	// turn on all the options
+</span><span class="flow">	for</span><span class="operator"> (</span><span class="type">int</span> v<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> v<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> v<span class="operator">++)
+	{</span><span class="flow">
+		for</span><span class="operator"> (</span><span class="type">int</span> u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> u<span class="operator">++)
+		{</span>
+			uint16<span class="operator">&amp;</span> b<span class="operator"> =</span> m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">];</span><span class="flow">
+
+			if</span><span class="operator"> (</span>HAS_FIXED<span class="operator">(</span>b<span class="operator">))</span>	b<span class="operator"> &amp;= ~</span>BOARD_ITEM_OPTIONS_MASK<span class="operator">;</span><span class="comment">	// all options OFF
+</span><span class="flow">			else</span>				b<span class="operator"> |=</span> BOARD_ITEM_OPTIONS_MASK<span class="operator">;</span><span class="comment">	// all options ON
+</span><span class="operator">		}
+	}</span><span class="type">
+
+	int</span>	nineBitsOn<span class="operator"> =</span><span class="int"> 0x3fe</span><span class="operator">;</span><span class="comment">	//	00000011 11111110
+					//	15     8 7      0
+</span><span class="flow">
+	for</span><span class="operator"> (</span><span class="type">int</span> p<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> p<span class="operator">&lt;</span>NUM_PATHS<span class="operator">;</span> p<span class="operator">++)
+	{</span>
+		Path<span class="operator">	&amp;</span>path<span class="operator">	=</span> m_paths<span class="operator">[</span>p<span class="operator">];</span><span class="type">
+		int</span>		sum<span class="operator">		=</span><span class="int"> 0</span><span class="operator">;</span><span class="comment">
+
+		// figure out all the numbers that are used, and create a mask out of it
+</span><span class="flow">		for</span><span class="operator"> (</span><span class="type">int</span> i<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> i<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> i<span class="operator">++)</span> sum<span class="operator"> |= (</span><span class="int">1</span><span class="operator"> &lt;&lt;</span> GET_FIXED<span class="operator">(</span>m_board<span class="operator">[</span>path<span class="operator">[</span>i<span class="operator">].</span>v<span class="operator">][</span>path<span class="operator">[</span>i<span class="operator">].</span>u<span class="operator">]));</span><span class="comment">
+
+		// check (ignore first bit which can be set by '1&lt;&lt;0')
+</span><span class="flow">		if</span><span class="operator"> ((</span>sum<span class="operator">&amp;(~</span><span class="int">1</span><span class="operator">)) !=</span> nineBitsOn<span class="operator">)
+		{</span><span class="comment">
+			// all 'on' bits on sum must be masked out of the item's OPTIONS
+</span>			sum<span class="operator"> = (~((</span>sum<span class="operator"> &gt;&gt;</span><span class="int"> 1</span><span class="operator">) &lt;&lt;</span> BOARD_ITEM_OPTIONS_START_BIT<span class="operator">)) | ~</span>BOARD_ITEM_OPTIONS_MASK<span class="operator">;</span><span class="comment">
+
+			// apply it to all the items in this path
+</span><span class="flow">			for</span><span class="operator"> (</span><span class="type">int</span> i<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> i<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> i<span class="operator">++)</span> m_board<span class="operator">[</span>path<span class="operator">[</span>i<span class="operator">].</span>v<span class="operator">][</span>path<span class="operator">[</span>i<span class="operator">].</span>u<span class="operator">] &amp;=</span> sum<span class="operator">;
+		}
+	}
+}</span><span class="type">
+
+int</span> CBoard<span class="operator">::</span>ApplyRule1<span class="operator">()
+{</span><span class="type">
+	int</span> numSolved<span class="operator"> =</span><span class="int"> 0</span><span class="operator">;</span><span class="comment">
+
+	// go over all the board, looking for items that have only 1 option
+</span><span class="flow">	for</span><span class="operator"> (</span><span class="type">int</span> v<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> v<span class="operator">&lt;</span><span class="int">9</span><span class="operator">;</span> v<span class="operator">++)
+	{</span><span class="flow">
+		for</span><span class="operator"> (</span><span class="type">int</span> u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span><span class="int">9</span><span class="operator">;</span> u<span class="operator">++)
+		{</span>
+			uint16<span class="operator">	&amp;</span>b<span class="operator"> =</span> m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">];</span><span class="comment">
+
+			// if this guy has a value, skip it
+</span><span class="flow">			if</span><span class="operator"> (</span>HAS_FIXED<span class="operator">(</span>b<span class="operator">))</span><span class="flow"> continue</span><span class="operator">;</span>
+
+			uint16	o<span class="operator"> =</span> GET_OPTIONS<span class="operator">(</span>b<span class="operator">);</span><span class="comment">
+
+			// find what options are on, and if only one is one, store it's index
+</span><span class="type">			int</span>		numOptions<span class="operator"> =</span><span class="int"> 0</span><span class="operator">;</span>
+			uint16	optionVal<span class="operator">;</span><span class="flow">
+			for</span><span class="operator"> (</span><span class="type">int</span> x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> x<span class="operator">++)
+			{</span><span class="flow">
+				if</span><span class="operator"> ((</span>o<span class="operator">&gt;&gt;</span>x<span class="operator">) &amp;</span><span class="int"> 1</span><span class="operator">)
+				{</span>
+					numOptions<span class="operator">++;</span>
+					optionVal<span class="operator"> =</span> x<span class="operator">+</span><span class="int">1</span><span class="operator">;
+				}
+			}</span><span class="comment">
+
+			// if there's 1 option -&gt; fix this baby to this one option
+</span><span class="flow">			if</span><span class="operator"> (</span>numOptions<span class="operator"> ==</span><span class="int"> 1</span><span class="operator">)
+			{</span>
+				b<span class="operator"> |=</span> optionVal<span class="operator">;</span>
+				numSolved<span class="operator">++;
+			}
+		}
+	}</span><span class="flow">
+
+	return</span> numSolved<span class="operator">;
+}</span><span class="type">
+
+
+int</span> CBoard<span class="operator">::</span>ApplyRule2<span class="operator">()
+{</span><span class="type">
+	int</span> numSolved<span class="operator"> =</span><span class="int"> 0</span><span class="operator">;</span><span class="comment">
+
+	// go over all the paths
+</span><span class="flow"> 	for</span><span class="operator"> (</span><span class="type">int</span> p<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> p<span class="operator">&lt;</span>NUM_PATHS<span class="operator">;</span> p<span class="operator">++)
+	{</span>
+		Path<span class="operator">	&amp;</span>path<span class="operator"> =</span> m_paths<span class="operator">[</span>p<span class="operator">];</span><span class="keyword">
+
+		struct</span><span class="operator">
+		{</span>
+			Point	lastCell<span class="operator">;</span><span class="comment">	// the last cell this option appeared in
+</span><span class="type">			int</span>	counter<span class="operator">;</span><span class="comment">	// how many cells had this option on
+</span><span class="operator">		}</span> options<span class="operator">[</span>BOARD_SIZE<span class="operator">];</span>
+
+		memset<span class="operator">(&amp;</span>options<span class="operator">,</span><span class="int"> 0</span><span class="operator">,</span><span class="keyword"> sizeof</span> options<span class="operator">);</span><span class="comment">
+
+		// for each path, scan all the cells and their options. for each possible option write down that it was possible
+		// and increase the 'how many times was this possible counter' for it.
+
+		// go over this path
+</span><span class="flow">		for</span><span class="operator"> (</span><span class="type">int</span> i<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> i<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> i<span class="operator">++)
+		{</span>
+			uint16	b<span class="operator"> =</span> m_board<span class="operator">[</span>path<span class="operator">[</span>i<span class="operator">].</span>v<span class="operator">][</span>path<span class="operator">[</span>i<span class="operator">].</span>u<span class="operator">];</span><span class="type">
+
+			int</span> tttt<span class="operator"> =</span> GET_FIXED<span class="operator">(</span>b<span class="operator">);</span><span class="comment">
+
+			// if this guy doesn't have a value, great, pick up it's options
+</span><span class="flow">			if</span><span class="operator"> (</span>NO_FIXED<span class="operator">(</span>b<span class="operator">))
+			{</span><span class="type">
+				int</span> cellOptions<span class="operator"> =</span> GET_OPTIONS<span class="operator">(</span>b<span class="operator">);</span><span class="comment">
+
+				// go over all the options
+</span><span class="flow">				for</span><span class="operator"> (</span><span class="type">int</span> x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> x<span class="operator">++)
+				{</span><span class="flow">
+					if</span><span class="operator"> ((</span>cellOptions<span class="operator">&gt;&gt;</span>x<span class="operator">) &amp;</span><span class="int"> 1</span><span class="operator">)
+					{</span>
+						options<span class="operator">[</span>x<span class="operator">].</span>lastCell<span class="operator"> =</span> path<span class="operator">[</span>i<span class="operator">];</span>
+						options<span class="operator">[</span>x<span class="operator">].</span>counter<span class="operator">++;
+					}
+				}
+			}</span><span class="comment">
+			// otherwise, we need to let the other's know that this number is taken,
+			// we'll fake it by maxing out this option
+</span><span class="flow">			else</span><span class="operator">
+			{</span>
+				options<span class="operator">[</span>GET_FIXED<span class="operator">(</span>b<span class="operator">) -</span><span class="int"> 1</span><span class="operator">].</span>counter<span class="operator"> =</span><span class="int"> 2</span><span class="operator">;
+			}
+		}</span><span class="comment">
+
+		// we completed the path, now check if there are any options that appear in only 1 place
+</span><span class="flow">		for</span><span class="operator"> (</span><span class="type">int</span> x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> x<span class="operator">++)
+		{</span><span class="flow">
+			if</span><span class="operator"> (</span>options<span class="operator">[</span>x<span class="operator">].</span>counter<span class="operator"> ==</span><span class="int"> 1</span><span class="operator">)
+			{</span><span class="comment">
+				// great, this option appeared in only 1 place, it means this cell must contain this value
+</span>				uint16<span class="operator">&amp;</span> b<span class="operator"> =</span> m_board<span class="operator">[</span>options<span class="operator">[</span>x<span class="operator">].</span>lastCell<span class="operator">.</span>v<span class="operator">][</span>options<span class="operator">[</span>x<span class="operator">].</span>lastCell<span class="operator">.</span>u<span class="operator">];</span><span class="comment">
+
+				// remove any fixed value that may be there (when we're working on an erronous board, a single
+				// cell can be found to be able to contain several FIXED values, hence a mere |= causes lots of trouble)
+</span>				b<span class="operator"> &amp;= ~</span>BOARD_ITEM_FIXED_MASK<span class="operator">;</span>
+				b<span class="operator"> |=</span> x<span class="operator">+</span><span class="int">1</span><span class="operator">;</span>
+
+				numSolved<span class="operator">++;
+			}
+		}
+	}</span><span class="flow">
+
+	return</span> numSolved<span class="operator">;
+}</span><span class="comment">
+
+// helper function to take options-bit-mask and return a randomly-sorted array of the options
+</span><span class="keyword">static</span><span class="type"> void</span> RandomifyOptions<span class="operator">(</span>uint16 options<span class="operator">,</span><span class="type"> int</span><span class="operator">*</span> result<span class="operator">,</span><span class="type"> int</span><span class="operator">*</span> numResults<span class="operator">)
+{</span><span class="type">
+	int</span>	num<span class="operator"> =</span><span class="int"> 0</span><span class="operator">;</span><span class="type">
+	int</span>	x<span class="operator">;</span><span class="comment">
+
+	// find all the ON options and store in an array
+</span><span class="flow">	for</span><span class="operator"> (</span>x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> x<span class="operator">++)
+	{</span><span class="comment">
+		// is this option on ?
+</span><span class="flow">		if</span><span class="operator"> ((</span>options<span class="operator"> &gt;&gt;</span> x<span class="operator">) &amp;</span><span class="int"> 1</span><span class="operator">)</span>	result<span class="operator">[</span>num<span class="operator">++] =</span> x<span class="operator">+</span><span class="int">1</span><span class="operator">;
+	}</span><span class="comment">
+
+	// random-sort the array
+	// for each position in the array, choose a random digit from the rest of the array
+</span><span class="flow">	for</span><span class="operator"> (</span>x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>num<span class="operator">-</span><span class="int">1</span><span class="operator">;</span> x<span class="operator">++)
+	{</span><span class="type">
+		int</span> src<span class="operator"> =</span> x<span class="operator"> +</span><span class="int"> 1</span><span class="operator"> + (</span>OS_RAND<span class="operator"> % (</span>num<span class="operator">-</span>x<span class="operator">-</span><span class="int">1</span><span class="operator">));</span><span class="comment">
+		
+		// switch between 'x' and 'src'
+</span><span class="type">		int</span>	tmp<span class="operator"> =</span> result<span class="operator">[</span>x<span class="operator">];</span>
+		result<span class="operator">[</span>x<span class="operator">] =</span> result<span class="operator">[</span>src<span class="operator">];</span>
+		result<span class="operator">[</span>src<span class="operator">] =</span> tmp<span class="operator">;
+	}</span><span class="comment">
+
+    // return number of results
+</span><span class="operator">	*</span>numResults<span class="operator"> =</span> num<span class="operator">;
+}</span>
+
+SolutionType CBoard<span class="operator">::</span>Solve<span class="operator">(</span><span class="type">bool</span> determineIfMultiple<span class="operator">)
+{</span><span class="type">
+	int</span>	numSolved<span class="operator">				=</span><span class="int"> 1</span><span class="operator">;</span><span class="type">
+	int</span>	numSolved1<span class="operator">,</span> numSolved2<span class="operator">;</span><span class="type">
+	int</span>	numSteps<span class="operator">				=</span><span class="int"> 0</span><span class="operator">;</span><span class="flow">
+
+	for</span><span class="operator"> (;;)
+	{</span><span class="comment">
+		// check board status
+</span>		BoardStatusType	boardStatus<span class="operator"> =</span> GetBoardStatus<span class="operator">();</span><span class="flow">
+
+		if</span><span class="operator">		(</span>boardStatus<span class="operator"> ==</span> BS_COMPLETE<span class="operator">)</span><span class="flow">	return</span> SOLUTOIN_SINGLE<span class="operator">;</span><span class="comment">	// we're done
+</span><span class="flow">		else if</span><span class="operator">	(</span>boardStatus<span class="operator"> ==</span> BS_ERROR<span class="operator">)</span><span class="flow">		return</span> SOLUTOIN_NONE<span class="operator">;</span><span class="comment">	// the board leads to an error
+</span><span class="flow">		else if</span><span class="operator"> (</span>numSolved<span class="operator"> ==</span><span class="int"> 0</span><span class="operator">)</span><span class="flow">				break</span><span class="operator">;</span><span class="comment">		// not done but can't get anything else, out of this loop
+
+		// fill-in trivial pencil marks
+</span>		FillPencilMarks<span class="operator">();</span><span class="comment">
+
+		// apply first solving rule
+</span>		numSolved1<span class="operator"> =</span> ApplyRule1<span class="operator">();</span>
+		numSolved2<span class="operator"> =</span> ApplyRule2<span class="operator">();</span><span class="comment">
+
+		// increase counters
+</span>		numSolved<span class="operator"> =</span> numSolved1<span class="operator"> +</span> numSolved2<span class="operator">;</span>
+		numSteps<span class="operator">++;</span><span class="comment">
+
+//		printf("Step %3d: solved %2d [method 1: %2d, method 2: %2d]\n", numSteps, numSolved, numSolved1, numSolved2);
+</span><span class="operator">	}</span><span class="comment">
+
+	// trial-and-error
+
+	// find a cell that doesn't have a fixed value
+</span><span class="type">	int</span>		u<span class="operator">,</span> v<span class="operator">;</span><span class="type">
+	int</span>		found<span class="operator">;</span><span class="flow">
+
+	for</span><span class="operator"> (</span>v<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> v<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> v<span class="operator">++)
+	{</span><span class="flow">
+		for</span><span class="operator"> (</span>u<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> u<span class="operator">&lt;</span>BOARD_SIZE<span class="operator">;</span> u<span class="operator">++)
+		{</span><span class="flow">
+			if</span><span class="operator"> ((</span>found<span class="operator"> =</span> NO_FIXED<span class="operator">(</span>m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">])) !=</span><span class="int"> 0</span><span class="operator">)</span><span class="flow"> break</span><span class="operator">;
+		}</span><span class="flow">
+
+		if</span><span class="operator"> (</span>found<span class="operator">)</span><span class="flow"> break</span><span class="operator">;
+	}</span><span class="comment">
+
+	// [v][u] doesn't have a fixed value
+</span>	uint16	cellOptions<span class="operator"> =</span> GET_OPTIONS<span class="operator">(</span>m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">]);</span><span class="type">
+	int</span>		options<span class="operator">[</span>BOARD_SIZE<span class="operator">];</span><span class="type">
+	int</span>		numOptions<span class="operator">;</span><span class="type">
+	int</span>		foundSol<span class="operator"> = -</span><span class="int">1</span><span class="operator">;</span>
+	CBoard	tempBoard<span class="operator">;</span><span class="comment">
+
+	// random sort the options
+</span>	RandomifyOptions<span class="operator">(</span>cellOptions<span class="operator">,</span> options<span class="operator">, &amp;</span>numOptions<span class="operator">);</span><span class="comment">
+
+	// go over it's options and try them each at a time
+</span><span class="flow">	for</span><span class="operator"> (</span><span class="type">int</span> x<span class="operator">=</span><span class="int">0</span><span class="operator">;</span> x<span class="operator">&lt;</span>numOptions<span class="operator">;</span> x<span class="operator">++)
+	{</span><span class="comment">
+		// create a new board for the experiment
+</span>		tempBoard<span class="operator"> = *</span><span class="keyword">this</span><span class="operator">;</span><span class="comment">
+
+		// set the value we're going to test
+</span>		tempBoard<span class="operator">.</span>SetItem<span class="operator">(</span>u<span class="operator">,</span> v<span class="operator">,</span> options<span class="operator">[</span>x<span class="operator">]);</span><span class="comment">
+
+		// now try to recursively solve
+</span>		SolutionType sol<span class="operator"> =</span> tempBoard<span class="operator">.</span>Solve<span class="operator">(</span>determineIfMultiple<span class="operator">);</span><span class="comment">
+
+		// see if we're going to send back the result
+</span><span class="flow">		if</span><span class="operator"> ((</span>sol<span class="operator"> ==</span> SOLUTOIN_MULTPLE<span class="operator">) ||</span><span class="comment">						    // we have multiple results, send them back
+</span><span class="operator">			(</span>sol<span class="operator"> ==</span> SOLUTOIN_SINGLE<span class="operator"> &amp;&amp; !</span>determineIfMultiple<span class="operator">) ||</span><span class="comment">			// we have one result, and we were'nt asked for more than that
+</span><span class="operator">			(</span>sol<span class="operator"> ==</span> SOLUTOIN_SINGLE<span class="operator"> &amp;&amp;</span> determineIfMultiple<span class="operator"> &amp;&amp;</span> foundSol<span class="operator"> != -</span><span class="int">1</span><span class="operator">))</span><span class="comment">	// we got one result, but already have one stored
+																				// and we're looking for more than one, great
+</span><span class="operator">		{
+			*</span><span class="keyword">this</span><span class="operator"> =</span> tempBoard<span class="operator">;</span><span class="flow">
+			return</span><span class="operator"> (</span>sol<span class="operator"> ==</span> SOLUTOIN_MULTPLE<span class="operator"> ||</span> foundSol<span class="operator"> != -</span><span class="int">1</span><span class="operator">) ?</span> SOLUTOIN_MULTPLE<span class="operator"> :</span> SOLUTOIN_SINGLE<span class="operator">;
+		}</span><span class="comment">
+
+		// is this the first solution, and we're looking for multiple ?
+</span><span class="flow">		if</span><span class="operator"> (</span>sol<span class="operator"> ==</span> SOLUTOIN_SINGLE<span class="operator"> &amp;&amp;</span> determineIfMultiple<span class="operator"> &amp;&amp;</span> foundSol<span class="operator"> == -</span><span class="int">1</span><span class="operator">)
+		{</span><span class="comment">
+             		// yes, mark the fact that we found a singlue solution
+</span>			foundSol<span class="operator"> =</span> x<span class="operator">;
+		}</span><span class="comment">
+
+		// move on
+</span><span class="operator">	}</span><span class="comment">
+
+	// if we're here, we either have no result, or we're looking for multiple results and found just one
+</span><span class="flow">	if</span><span class="operator"> (</span>foundSol<span class="operator"> == -</span><span class="int">1</span><span class="operator">)</span><span class="flow"> return</span> SOLUTOIN_NONE<span class="operator">;</span><span class="comment">
+
+	// we found just one solution, reconstruct the solution and send it back
+</span>	SetItem<span class="operator">(</span>u<span class="operator">,</span> v<span class="operator">,</span> options<span class="operator">[</span>foundSol<span class="operator">]);</span>
+	Solve<span class="operator">();</span><span class="flow">
+
+	return</span> SOLUTOIN_SINGLE<span class="operator">;
+}</span>
+
+SolutionType CBoard<span class="operator">::</span>IsSolveable<span class="operator">()
+{</span>
+	CBoard	temp<span class="operator"> = *</span><span class="keyword">this</span><span class="operator">;</span><span class="flow">
+	return</span> temp<span class="operator">.</span>Solve<span class="operator">(</span><span class="bool">true</span><span class="operator">);
+}</span><span class="type">
+
+void</span> CBoard<span class="operator">::</span>Generate<span class="operator">(</span>uint16 seed<span class="operator">,</span><span class="type"> int</span> difficulty<span class="operator">)</span><span class="comment">	// 1..3
+</span><span class="operator">{</span>
+	ClearBoard<span class="operator">();</span><span class="comment">
+
+	// set a random seed
+</span>	OS_SRAND<span class="operator">(</span>seed<span class="operator">);</span><span class="comment">
+
+	// 'solve' this board (fill it up)
+</span>	Solve<span class="operator">();</span><span class="comment">
+
+	//
+	// remove cells
+	//
+</span><span class="type">	int</span>	numVisibleCells<span class="operator"> =</span> BOARD_SIZE<span class="operator">*</span>BOARD_SIZE<span class="operator">;</span><span class="type">
+	int</span>	targetVisible<span class="operator">	=</span><span class="int"> 50</span><span class="operator">;</span><span class="comment">//30+(3-difficulty)*5;
+</span><span class="flow">
+	while</span><span class="operator"> (</span>numVisibleCells<span class="operator"> &gt;</span> targetVisible<span class="operator">)
+	{</span><span class="type">
+		int</span> u<span class="operator"> =</span> OS_RAND<span class="operator"> %</span> BOARD_SIZE<span class="operator">;</span><span class="type">
+		int</span> v<span class="operator"> =</span> OS_RAND<span class="operator"> %</span> BOARD_SIZE<span class="operator">;</span><span class="comment">
+
+		// is it already clear ?
+</span><span class="flow">		if</span><span class="operator"> (</span>NO_FIXED<span class="operator">(</span>m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">]))</span><span class="flow"> continue</span><span class="operator">;</span>
+
+		CBoard	tempBoard<span class="operator"> = *</span><span class="keyword">this</span><span class="operator">;</span>
+		
+		tempBoard<span class="operator">.</span>SetItem<span class="operator">(</span>u<span class="operator">,</span> v<span class="operator">,</span><span class="int"> 0</span><span class="operator">);</span><span class="flow">
+
+		if</span><span class="operator"> (</span>tempBoard<span class="operator">.</span>Solve<span class="operator">(</span><span class="bool">true</span><span class="operator">) !=</span> SOLUTOIN_SINGLE<span class="operator">)</span><span class="flow"> continue</span><span class="operator">;</span><span class="comment">
+
+		// clear it
+</span>		m_board<span class="operator">[</span>v<span class="operator">][</span>u<span class="operator">] =</span><span class="int"> 0</span><span class="operator">;</span>
+
+		numVisibleCells<span class="operator">--;
+	}</span><span class="comment">
+
+	// done
+</span><span class="operator">}</span>
+</pre>
+
+</body></html>
+<!-- Localized -->

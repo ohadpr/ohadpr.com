@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Text</title>
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-formhelpers.css" rel="stylesheet">
+    <link href="css/slider.css" rel="stylesheet">
+    <link href="css/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-formhelpers-selectbox.js"></script>
+    <script src="js/bootstrap-formhelpers-googlefonts.codes.js" type="text/javascript"></script>
+    <script src="js/bootstrap-formhelpers-googlefonts.js" type="text/javascript"></script>
+    <script src="js/bootstrap-slider.js" type="text/javascript"></script>
+    <script src="js/bootstrap-colorpicker.js" type="text/javascript"></script>
+    <script src="js/main.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="left-side">
+        <form>
+          <fieldset>
+            <legend>Edit your text</legend>
+            <textarea id="txtContent" class="text-input"></textarea>
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Fonts</legend>
+            <div class="bfh-selectbox bfh-googlefonts" data-subsets="latin-ext" id="font-select">
+              <input type="hidden" value="">
+              <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
+                <span class="bfh-selectbox-option input-large" data-option=""></span>
+                <b class="caret"></b>
+              </a>
+              <div class="bfh-selectbox-options">
+                <input type="text" class="bfh-selectbox-filter">
+                <div role="listbox">
+                <ul role="option">
+                </ul>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Themes</legend>
+            <div class="bfh-selectbox" id="theme-select">
+              <input type="hidden" name="selectbox1" value="">
+              <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
+                <span class="bfh-selectbox-option input-medium" data-option="1" id="theme">vintage</span>
+                <b class="caret"></b>
+              </a>
+              <div class="bfh-selectbox-options">
+              <div role="listbox">
+                <ul role="option">
+                  <li><a tabindex="-1" href="#" data-option="1" data-name="vintage">vintage</a></li>
+                  <li><a tabindex="-1" href="#" data-option="2" data-name="neon">neon</a></li>
+                  <li><a tabindex="-1" href="#" data-option="3" data-name="inset">inset</a></li>
+                  <li><a tabindex="-1" href="#" data-option="4" data-name="anaglyphic">anaglyphic</a></li>
+                  <li><a tabindex="-1" href="#" data-option="5" data-name="fire">fire</a></li>
+                  <li><a tabindex="-1" href="#" data-option="6" data-name="boardgame">boardgame</a></li>
+                  <li><a tabindex="-1" href="#" data-option="7" data-name="three-dimensional">3D</a></li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Configure</legend>
+            <div id="configures">
+              
+            </div>
+          </fieldset>
+        </form>
+    </div>
+    <div class="right-side">
+    </div>
+</body>
+</html>
