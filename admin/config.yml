@@ -12,3 +12,5 @@ collections: # A list of collections the CMS should be able to edit
       - name: "index.html"
         label: "index.html"
         file: "/index.html"
+        fields: # The fields each document in this collection have
+          - {label: "Body", name: "body", widget: "text"}
