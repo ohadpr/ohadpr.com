@@ -11,4 +11,4 @@ collections: # A list of collections the CMS should be able to edit
     files:
       - name: "index.html"
         label: "index.html"
-        file: "index.html"
+        file: "/index.html"
