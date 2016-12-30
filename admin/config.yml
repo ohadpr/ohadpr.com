@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: https://github.com/ohadpr/ohadpr.com
+  repo: ohadpr/ohadpr.com
   branch: master # Branch to update (master by default)
 
 media_folder: "img/uploads" # Folder where user uploaded files should go
