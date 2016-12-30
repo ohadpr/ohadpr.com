@@ -6,6 +6,9 @@ backend:
 media_folder: "img/uploads" # Folder where user uploaded files should go
 
 collections: # A list of collections the CMS should be able to edit
-  - name: "index"
-    label: "index"
-    file: "index.html"
+  - name: "files"
+    label: "files"
+    files:
+      - name: "index.html"
+        label: "index.html"
+        file: "index.html"
